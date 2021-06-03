@@ -110,6 +110,7 @@ server 端請使用：
 ※ 在這個階段，model 關係圖不需要是完全正確的。以現在所能預想的範圍來規劃就好（做到後面的步驟，發現需要修改時再來調整的概念）
 
 ### 步驟5: 資料庫連接等週邊設定
+[Reference](https://ithelp.ithome.com.tw/articles/10196250)
 
 - 建立新的 topic 分支
 	- 之後都在 topic 分支上開發並進行 commit
@@ -117,6 +118,10 @@ server 端請使用：
 - 在 `Gemfile` 安裝 `pg`（PostgreSQL 的 adapter）
 - 設定 `database.yml`
 - 以 `rails db:create` 建立資料庫
+	- To start PostgreSQL server now and relaunch at login:
+		`brew services start postgresql`
+	- And stop PostgreSQL:
+		`brew services stop postgresql`
 - 以 `rails db` 確認有正確連接資料庫
 - 在 GitHub 上建立 PR 並請人 review
 	- 必要時，請在 PR 上標柱 WIP（Work In Progress）
