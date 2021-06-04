@@ -134,6 +134,7 @@ server 端請使用：
 - 以 `rails generate` 指令建立 CRUD 所需的 model 類別
 - 撰寫 migration 並以此建立資料表
 	- 非常重要：migration 要確定能安全回到上一步的狀態！請養成以 `redo` 確認的習慣
+	- rails db:migrate:redo : 回滾到前 n 步的狀態(`STEP=n`)，接著再遷移一次
 - 以 `rails c` 指令，透過 model 確認有正確連接資料庫
 	- 順便試著以 ActiveRecord 建立資料
 - 在 GitHub 上發 PR 並請人 review
