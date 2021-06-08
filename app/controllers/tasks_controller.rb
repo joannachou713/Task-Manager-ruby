@@ -20,12 +20,12 @@ class TasksController < ApplicationController
 
 
     def edit
-        @task = Task.find_by(id: params[:id])
+        @task = Task.find(params[:id])
     end
 
 
     def update
-        @task = Task.find_by(id: params[:id])
+        @task = Task.find(params[:id])
 
         if @task.update(task_params)
             redirect_to tasks_path, notice: 'Task was successfully updated'
@@ -36,14 +36,24 @@ class TasksController < ApplicationController
 
 
     def destroy
-        @task = Task.find_by(id: params[:id])
+        @task = Task.find(params[:id])
         @task.destroy if @task
         redirect_to tasks_path, notice: 'Task was successfully deleted'
+    
     end
+    
 
+    rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
+    
 
     private
     def task_params
         params.require(:task).permit(:title, :content, :start, :end, :priority, :status)
+    end
+    
+    
+    def handle_record_not_found
+        flash[:notice] = "Record Not Found"
+        redirect_to :action => 'index'
     end
 end
