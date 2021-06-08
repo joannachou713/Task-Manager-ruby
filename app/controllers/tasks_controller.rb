@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
     def index
         @tasks = Task.all
+        @pri_list = ['低', '中', '高', '3']
+        @status_list = ['待處理', '進行中', '已完成']
     end
 
     def new

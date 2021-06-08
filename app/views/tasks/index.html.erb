@@ -1,7 +1,6 @@
 <h1 class="mb-3">Task Manager</h1>
 <%= link_to "新增", new_task_path, class:"btn btn-primary mb-3"%>
-<% pri_list = ['低', '中', '高', '3']%>
-<% status_list = ['待處理', '進行中', '已完成']%>
+
 
 <table class="table">
   <thead>
@@ -22,10 +21,10 @@
       <td><%= task.start %></td>
       <td><%= task.end %></td>
       <td>
-        <%= pri_list[task.priority] %>
+        <%= @pri_list[task.priority] %>
       </td>
       <td>
-        <%= status_list[task.status] %>
+        <%= @status_list[task.status] %>
       </td>
       <td>label</td>
       <td>
