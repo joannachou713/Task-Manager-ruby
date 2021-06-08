@@ -13,31 +13,31 @@
 
     <%= f.label :priority, "優先度", class: "form-label" %>
     <div class="form-check">
-        <%= f.radio_button :priority, 3, class: "form-check-label" %>
-        <%= f.label :priority, "高", :value => "3", class: "form-check-label" %>
-    </div>
-    <div class="form-check">
         <%= f.radio_button :priority, 2, class: "form-check-label" %>
-        <%= f.label :priority, "中", :value => "2", class: "form-check-label" %>
+        <%= f.label :priority, "高", :value => "2", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :priority, 1, class: "form-check-label" %>
-        <%= f.label :priority, "低", :value => "1", class: "form-check-label" %><br />
+        <%= f.label :priority, "中", :value => "1", class: "form-check-label" %>
+    </div>
+    <div class="form-check">
+        <%= f.radio_button :priority, 0, class: "form-check-label" %>
+        <%= f.label :priority, "低", :value => "0", class: "form-check-label" %><br />
     </div>
         
 
     <%= f.label :status, "狀態", class: "form-label" %>
     <div class="form-check">
+        <%= f.radio_button :status, 0, class: "form-check-label" %>
+        <%= f.label :status, "待處理", :value => "0", class: "form-check-label" %>
+    </div>
+    <div class="form-check">
         <%= f.radio_button :status, 1, class: "form-check-label" %>
-        <%= f.label :status, "待處理", :value => "1", class: "form-check-label" %>
+        <%= f.label :status, "進行中", :value => "1", class: "form-check-label" %>
     </div>
     <div class="form-check">
-        <%= f.radio_button :status, 2, class: "form-check-label" %>
-        <%= f.label :status, "進行中", :value => "2", class: "form-check-label" %>
-    </div>
-    <div class="form-check">
-        <%= f.radio_button :status, 3, class: "form-check-label" %>    
-        <%= f.label :status, "已完成", :value => "3", class: "form-check-label" %><br />
+        <%= f.radio_button :status, 2, class: "form-check-label" %>    
+        <%= f.label :status, "已完成", :value => "2", class: "form-check-label" %><br />
     </div>
 
     <%= f.submit %>
