@@ -3,6 +3,7 @@ rvm:
   - 3.0.1
 install:
   - bundle install
+  - node -v
 services:
   - postgresql
 script:
