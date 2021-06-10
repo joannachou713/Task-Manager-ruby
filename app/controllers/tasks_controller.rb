@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
     def index
-        @tasks = Task.all
+        @tasks = Task.order(:id).all
         @pri_list = ['低', '中', '高', '3']
         @status_list = ['待處理', '進行中', '已完成']
     end
@@ -16,6 +16,7 @@ class TasksController < ApplicationController
         if @task.save
             redirect_to tasks_path, notice: 'Task was successfully created'
         else
+            flash[:notice] = @task.errors.full_messages.to_sentence
             render :new
         end
     end
@@ -32,7 +33,8 @@ class TasksController < ApplicationController
         if @task.update(task_params)
             redirect_to tasks_path, notice: 'Task was successfully updated'
         else
-            render :new
+            flash[:notice] = @task.errors.full_messages.to_sentence
+            render :edit
         end
     end
 

@@ -159,6 +159,9 @@ server 端請使用：
 
 - 寫 spec 的事前準備
 	- 準備 `spec/spec_helper.rb` 、`spec/rails_helper.rb`
+		- `Gemfile`: `rspec-rails 5.0.1`
+		- `rails generate rspec:install`
+		- [Rspec-rails Documentation](https://rspec.info/documentation/5.0/rspec-rails/)
 - 針對任務的功能來寫 feature spec
 - 導入 Travis CI 之類的 CI 工具，每次 Push 後自動跑 Spec
 	- 太難的話可以請導師幫忙設定
@@ -237,6 +240,7 @@ server 端請使用：
 
 - 使用 Bootstrap 4，為目前的作品套入設計
 	- 【選項】自己寫 CSS 來設計
+	- bootstrap_form
 
 ### 步驟19: 支援多人使用
 
