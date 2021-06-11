@@ -1,0 +1,51 @@
+<h1 class="mb-3">Task Manager</h1>
+<%= link_to t('show.new'), new_task_path, class:"btn btn-primary mb-3"%>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <td><%= t('show.title') %></td>
+      <td><%= t('show.created') %>
+        <%= link_to tasks_path(:order => 'created_at', :direction => 'ASC') do%>
+          <i class="fas fa-sort-down fa-lg ms-1"></i>
+        <% end %>
+      </td>
+      <td><%= t('show.start') %></td>
+      <td><%= t('show.end') %></td>
+      <td><%= t('show.priority-text') %>
+        <%= link_to tasks_path(:order => 'priority', :direction => 'DESC') do%>
+          <i class="fas fa-sort-down fa-lg ms-1"></i>
+        <% end %>
+      </td>
+      <td><%= t('show.status-text') %>
+        <%= link_to tasks_path(:order => 'status', :direction => 'ASC') do%>
+          <i class="fas fa-sort-down fa-lg ms-1"></i>
+        <% end %>
+      </td>
+      <td><%= t('show.label') %></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.title %>//<%= task.id %></td>
+      <td style="font-family: 'Roboto Mono', monospace;"><%= task.created_at.strftime("%Y %m %d - %I:%M %p") %></td>
+      <td style="font-family: 'Roboto Mono', monospace;"><%= task.start.strftime("%Y %m %d - %I:%M %p") %></td>
+      <td style="font-family: 'Roboto Mono', monospace;"><%= task.end.strftime("%Y %m %d - %I:%M %p") %></td>
+      <td>
+        <%= t('show.priority')[task.priority] %>
+      </td>
+      <td>
+        <%= t('show.status')[task.status] %>
+      </td>
+      <td>label</td>
+      <td>
+        <%= link_to t('edit'), edit_task_path(task) %>
+        <%= link_to t('delete'), task_path(task), method: "delete", data: { confirm: "確認刪除" } %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

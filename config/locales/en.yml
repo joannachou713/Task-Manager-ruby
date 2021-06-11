@@ -30,4 +30,28 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  show:
+    new: New Task
+    edit: Edit Task
+    title: Task Title
+    content: Content
+    created: Created at
+    start: Start Time
+    end: End Time
+    priority-text: Priority
+    priority:
+      - Low
+      - Medium
+      - High
+    status-text: Status
+    status:
+      - Pending
+      - Ongoing
+      - Finished
+    back: Back to Task List
+    label: Label
+  edit: Edit
+  delete: Delete
+  successful-delete: Task deleted successfully.
+  successful-update: Task updated successfully.
+  successful-create: Task created successfully.

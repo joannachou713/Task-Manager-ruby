@@ -139,12 +139,17 @@ server 端請使用：
 	- 順便試著以 ActiveRecord 建立資料
 - 在 GitHub 上發 PR 並請人 review
 
+> 遇到的問題： gem 在我關機重開之後 cache 消失，而實體本身不存在，導致環境出現問題
+>	在執行 `gem update --system` 更新 gem 與其它套件之後，環境順利恢復了！
+
 ### 步驟7: 新增、修改、刪除任務
 
 - 製作任務的列表、新增、檢視以及修改頁面
 	- 以 `rails generate` 指令產生 controller
 		- 請和導師討論要用哪一種 template engine（ERB / Slim / Haml..etc）
+		- error Command "webpack" not found -> `bundle exec rails webpacker:install`
 	- 實做 controller 和 view 必要的部分
+		- 要注意單數複數的命名，check `rails routes`（範例中的 Model, Controller, View 命名皆為單數）
 	- 完成新增、修改、刪除之後需要在畫面上顯示的 Flash 訊息
 - 修改 `routes.rb`，讓 `http://localhost:3000/` 會顯示任務的列表頁面
 - 在 GitHub 上發 PR 並請人 review
@@ -154,6 +159,9 @@ server 端請使用：
 
 - 寫 spec 的事前準備
 	- 準備 `spec/spec_helper.rb` 、`spec/rails_helper.rb`
+		- `Gemfile`: `rspec-rails 5.0.1`
+		- `rails generate rspec:install`
+		- [Rspec-rails Documentation](https://rspec.info/documentation/5.0/rspec-rails/)
 - 針對任務的功能來寫 feature spec
 - 導入 Travis CI 之類的 CI 工具，每次 Push 後自動跑 Spec
 	- 太難的話可以請導師幫忙設定
@@ -232,6 +240,7 @@ server 端請使用：
 
 - 使用 Bootstrap 4，為目前的作品套入設計
 	- 【選項】自己寫 CSS 來設計
+	- bootstrap_form
 
 ### 步驟19: 支援多人使用
 

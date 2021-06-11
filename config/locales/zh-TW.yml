@@ -1,0 +1,26 @@
+"zh-TW":
+  show:
+    new: 新增任務
+    edit: 編輯任務
+    title: 任務標題
+    content: 內容
+    created: 創建時間
+    start: 開始時間
+    end: 結束時間
+    priority-text: 優先度
+    priority:
+      - 低
+      - 中
+      - 高
+    status-text: 狀態
+    status:
+      - 待處理
+      - 進行中
+      - 已完成
+    back: 回到任務列表
+    label: 標籤
+  edit: 編輯
+  delete: 刪除
+  successful-delete: 任務成功刪除
+  successful-update: 任務成功更新
+  successful-create: 任務成功新增

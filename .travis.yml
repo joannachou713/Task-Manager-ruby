@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+  - 3.0.1
+install:
+  - bundle install
+  - nvm install node
+  - node -v
+  - npm i -g yarn
+  - yarn
+services:
+  - postgresql
+script:
+  - bundle exec rake db:migrate:reset RAILS_ENV=test
+  - RAILS_ENV=test rails webpacker:compile
+  - bundle exec rspec
+branches:
+  only:
+  - topic
+  - main
