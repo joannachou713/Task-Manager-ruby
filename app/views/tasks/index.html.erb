@@ -1,17 +1,17 @@
 <h1 class="mb-3">Task Manager</h1>
-<%= link_to "新增", new_task_path, class:"btn btn-primary mb-3"%>
+<%= link_to t('show.new'), new_task_path, class:"btn btn-primary mb-3"%>
 
 
 <table class="table">
   <thead>
     <tr>
-      <td>任務名稱</td>
-      <td>開始時間</td>
-      <td>結束時間</td>
-      <td>優先度</td>
-      <td>狀態</td>
-      <td>標籤</td>
-      <td>動作</td>
+      <td><%= t('show.title') %></td>
+      <td><%= t('show.start') %></td>
+      <td><%= t('show.end') %></td>
+      <td><%= t('show.priority-text') %></td>
+      <td><%= t('show.status-text') %></td>
+      <td><%= t('show.label') %></td>
+      <td></td>
     </tr>
   </thead>
   <tbody>
@@ -21,10 +21,10 @@
       <td><%= task.start %></td>
       <td><%= task.end %></td>
       <td>
-        <%= @pri_list[task.priority] %>
+        <%= t('show.priority')[task.priority] %>
       </td>
       <td>
-        <%= @status_list[task.status] %>
+        <%= t('show.status')[task.status] %>
       </td>
       <td>label</td>
       <td>

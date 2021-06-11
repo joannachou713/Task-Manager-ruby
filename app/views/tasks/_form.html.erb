@@ -1,43 +1,43 @@
 <%= form_for(task) do |f| %>
-    <%= f.label :title, "任務名稱", class: "form-label" %>
+    <%= f.label :title, t('show.title'), class: "form-label" %>
     <%= f.text_field :title, class: "form-control" %> <br />
   
-    <%= f.label :content, "內容", class: "form-label" %>
+    <%= f.label :content, t('show.content'), class: "form-label" %>
     <%= f.text_area :content, class: "form-control" %> <br />
   
-    <%= f.label :start, "開始時間", class: "form-label" %>
+    <%= f.label :start, t('show.start'), class: "form-label" %>
     <%= f.datetime_select :start %> <br />
   
-    <%= f.label :end, "結束時間", class: "form-label" %>
+    <%= f.label :end, t('show.end'), class: "form-label" %>
     <%= f.datetime_select :end %> <br />
 
-    <%= f.label :priority, "優先度", class: "form-label" %>
+    <%= f.label :priority, t('show.priority-text'), class: "form-label" %>
     <div class="form-check">
         <%= f.radio_button :priority, 2, class: "form-check-label" %>
-        <%= f.label :priority, "高", :value => "2", class: "form-check-label" %>
+        <%= f.label :priority, t('show.priority.high'), :value => "2", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :priority, 1, class: "form-check-label" %>
-        <%= f.label :priority, "中", :value => "1", class: "form-check-label" %>
+        <%= f.label :priority, t('show.priority.medium'), :value => "1", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :priority, 0, class: "form-check-label" %>
-        <%= f.label :priority, "低", :value => "0", class: "form-check-label" %><br />
+        <%= f.label :priority, t('show.priority.low'), :value => "0", class: "form-check-label" %><br />
     </div>
         
 
-    <%= f.label :status, "狀態", class: "form-label" %>
+    <%= f.label :status, t('show.status-text'), class: "form-label" %>
     <div class="form-check">
         <%= f.radio_button :status, 0, class: "form-check-label" %>
-        <%= f.label :status, "待處理", :value => "0", class: "form-check-label" %>
+        <%= f.label :status, t('show.status.pending'), :value => "0", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :status, 1, class: "form-check-label" %>
-        <%= f.label :status, "進行中", :value => "1", class: "form-check-label" %>
+        <%= f.label :status, t('show.status.ongoing'), :value => "1", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :status, 2, class: "form-check-label" %>    
-        <%= f.label :status, "已完成", :value => "2", class: "form-check-label" %><br />
+        <%= f.label :status, t('show.status.finished'), :value => "2", class: "form-check-label" %><br />
     </div>
 
     <%= f.submit %>

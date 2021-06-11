@@ -5,15 +5,15 @@ RSpec.feature "Tasks", type: :feature do
     before(:each) do
       visit new_task_path
       within('form') do
-        choose '高'
-        choose '進行中'
+        choose I18n.t('priority')[0]
+        choose I18n.t('status')[0]
       end
     end
 
 
     scenario "should be successful" do
       within('form') do
-        fill_in '任務名稱', with: 'new task test'
+        fill_in I18n.t('shoe.title'), with: 'new task test'
       end
       click_button 'Create Task'
       expect(page).to have_content('Task was successfully created')
@@ -32,7 +32,7 @@ RSpec.feature "Tasks", type: :feature do
       task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, end: (DateTime.now + 1.week), priority: 0, status: 0)
       visit edit_task_path(task)
       within('form') do
-        fill_in '任務名稱', with: '測試修改'
+        fill_in I18n.t('shoe.title'), with: '測試修改'
       end
       click_button 'Update Task'
       expect(page).to have_content('Task was successfully updated')
@@ -46,7 +46,7 @@ RSpec.feature "Tasks", type: :feature do
       task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, end: (DateTime.now + 1.week), priority: 0, status: 0)
       visit tasks_path
       # click_link '刪除'
-      expect{ click_link '刪除' }.to change(Task, :count).by(-1)
+      expect{ click_link 'Delete' }.to change(Task, :count).by(-1)
       expect(page).to have_content('Task was successfully deleted')
     end
   end
