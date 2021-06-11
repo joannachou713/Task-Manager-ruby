@@ -52,13 +52,32 @@ RSpec.feature "Tasks", type: :feature do
 
 
   context "sort tasks" do
+    before(:each) do
+      task = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now, start: DateTime.now, end: (DateTime.now + 1.week), priority: 1, status: 0)
+      task1 = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour, start: DateTime.now, end: (DateTime.now + 1.week), priority: 0, status: 1)
+    end
+
     scenario "sort by creation time" do
-      task = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now, start: DateTime.now, end: (DateTime.now + 1.week), priority: 0, status: 0)
-      task1 = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour, start: DateTime.now, end: (DateTime.now + 1.week), priority: 0, status: 0)
       visit tasks_path
       expect(page).to have_content(/title0.+title1/)
       
-      visit sort_create_url
+      visit tasks_path(:order => 'created_at')
+      expect(page).to have_content(/title1.+title0/)
+    end
+
+    scenario "sort by priority" do
+      visit tasks_path
+      expect(page).to have_content(/title0.+title1/)
+      
+      visit tasks_path(:order => 'priority')
+      expect(page).to have_content(/title1.+title0/)
+    end
+
+    scenario "sort by status" do
+      visit tasks_path
+      expect(page).to have_content(/title0.+title1/)
+      
+      visit tasks_path(:order => 'status')
       expect(page).to have_content(/title1.+title0/)
     end
   end
