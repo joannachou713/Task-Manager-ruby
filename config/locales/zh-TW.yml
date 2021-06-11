@@ -4,6 +4,7 @@
     edit: 編輯任務
     title: 任務標題
     content: 內容
+    created: 創建時間
     start: 開始時間
     end: 結束時間
     priority-text: 優先度

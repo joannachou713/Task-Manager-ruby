@@ -35,6 +35,7 @@ en:
     edit: Edit Task
     title: Task Title
     content: Content
+    created: Created at
     start: Start Time
     end: End Time
     priority-text: Priority

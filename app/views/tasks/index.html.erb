@@ -6,10 +6,11 @@
   <thead>
     <tr>
       <td><%= t('show.title') %></td>
+      <td><%= t('show.created') %><a href='sort_create'><i class="fas fa-sort-down fa-lg ms-1"></i></i></a></td>
       <td><%= t('show.start') %></td>
       <td><%= t('show.end') %></td>
-      <td><%= t('show.priority-text') %></td>
-      <td><%= t('show.status-text') %></td>
+      <td><%= t('show.priority-text') %><a href='sort_priority'><i class="fas fa-sort-down fa-lg ms-1"></i></i></a></td>
+      <td><%= t('show.status-text') %><a href='sort_status'><i class="fas fa-sort-down fa-lg ms-1"></i></i></a></td>
       <td><%= t('show.label') %></td>
       <td></td>
     </tr>
@@ -18,8 +19,9 @@
     <% @tasks.each do |task| %>
     <tr>
       <td><%= task.title %></td>
-      <td><%= task.start %></td>
-      <td><%= task.end %></td>
+      <td style="font-family: 'Roboto Mono', monospace;"><%= task.created_at.strftime("%Y %m %d - %I:%M %p") %></td>
+      <td style="font-family: 'Roboto Mono', monospace;"><%= task.start.strftime("%Y %m %d - %I:%M %p") %></td>
+      <td style="font-family: 'Roboto Mono', monospace;"><%= task.end.strftime("%Y %m %d - %I:%M %p") %></td>
       <td>
         <%= t('show.priority')[task.priority] %>
       </td>
