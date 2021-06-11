@@ -51,3 +51,6 @@ en:
     label: Label
   edit: Edit
   delete: Delete
+  successful-delete: Task deleted successfully.
+  successful-update: Task updated successfully.
+  successful-create: Task created successfully.

@@ -20,4 +20,6 @@
     label: 標籤
   edit: 編輯
   delete: 刪除
-  successful: 任務成功%{move}
+  successful-delete: 任務成功刪除
+  successful-update: 任務成功更新
+  successful-create: 任務成功新增

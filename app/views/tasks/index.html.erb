@@ -28,8 +28,8 @@
       </td>
       <td>label</td>
       <td>
-        <%= link_to "編輯", edit_task_path(task) %>
-        <%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確認刪除" } %>
+        <%= link_to t('edit'), edit_task_path(task) %>
+        <%= link_to t('delete'), task_path(task), method: "delete", data: { confirm: "確認刪除" } %>
       </td>
     </tr>
     <% end %>

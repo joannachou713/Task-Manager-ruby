@@ -1,8 +1,6 @@
 class TasksController < ApplicationController
     def index
         @tasks = Task.order(:id).all
-        @pri_list = ['低', '中', '高', '3']
-        @status_list = ['待處理', '進行中', '已完成']
     end
 
     def new
@@ -14,7 +12,7 @@ class TasksController < ApplicationController
         @task = Task.new(task_params)
 
         if @task.save
-            redirect_to tasks_path, notice: 'Task was successfully created'
+            redirect_to tasks_path, notice: I18n.t('successful-create')
         else
             flash[:notice] = @task.errors.full_messages.to_sentence
             render :new
@@ -31,7 +29,7 @@ class TasksController < ApplicationController
         @task = Task.find(params[:id])
 
         if @task.update(task_params)
-            redirect_to tasks_path, notice: 'Task was successfully updated'
+            redirect_to tasks_path, notice: I18n.t('successful-update')
         else
             flash[:notice] = @task.errors.full_messages.to_sentence
             render :edit
@@ -42,7 +40,7 @@ class TasksController < ApplicationController
     def destroy
         @task = Task.find(params[:id])
         @task.destroy if @task
-        redirect_to tasks_path, notice: 'Task was successfully deleted'
+        redirect_to tasks_path, notice: I18n.t('successful-delete')
     
     end
     
