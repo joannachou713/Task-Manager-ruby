@@ -6,11 +6,23 @@
   <thead>
     <tr>
       <td><%= t('show.title') %></td>
-      <td><%= t('show.created') %><a href='sort_create'><i class="fas fa-sort-down fa-lg ms-1"></i></i></a></td>
+      <td><%= t('show.created') %>
+        <%= link_to tasks_path(:order => 'created_at') do%>
+          <i class="fas fa-sort-down fa-lg ms-1"></i>
+        <% end %>
+      </td>
       <td><%= t('show.start') %></td>
       <td><%= t('show.end') %></td>
-      <td><%= t('show.priority-text') %><a href='sort_priority'><i class="fas fa-sort-down fa-lg ms-1"></i></i></a></td>
-      <td><%= t('show.status-text') %><a href='sort_status'><i class="fas fa-sort-down fa-lg ms-1"></i></i></a></td>
+      <td><%= t('show.priority-text') %>
+        <%= link_to tasks_path(:order => 'priority') do%>
+          <i class="fas fa-sort-down fa-lg ms-1"></i>
+        <% end %>
+      </td>
+      <td><%= t('show.status-text') %>
+        <%= link_to tasks_path(:order => 'status') do%>
+          <i class="fas fa-sort-down fa-lg ms-1"></i>
+        <% end %>
+      </td>
       <td><%= t('show.label') %></td>
       <td></td>
     </tr>

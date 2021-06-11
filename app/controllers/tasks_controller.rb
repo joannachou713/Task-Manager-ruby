@@ -1,26 +1,17 @@
 class TasksController < ApplicationController
     def index
         @tasks = Task.all.order('id')
+        if params[:order] == "created_at"
+            @tasks = Task.all.order('created_at ASC')
+        end
+        if params[:order] == "priority"
+            @tasks = Task.all.order('priority DESC')
+        end
+        if params[:order] == "status"
+            @tasks = Task.all.order('status ASC')
+        end
     end
     
-    
-    def sort_create
-        @tasks = Task.all.order('created_at ASC')
-        render template: "tasks/index.html.erb"
-    end
-    
-    
-    def sort_priority
-        @tasks = Task.all.order('priority DESC')
-        render template: "tasks/index.html.erb"
-    end
-
-
-    def sort_status
-        @tasks = Task.all.order('status ASC')
-        render template: "tasks/index.html.erb"
-    end
-
 
     def new
         @task = Task.new
