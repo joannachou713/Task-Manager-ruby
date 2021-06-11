@@ -61,7 +61,7 @@ RSpec.feature "Tasks", type: :feature do
       visit tasks_path
       expect(page).to have_content(/title0.+title1/)
       
-      visit tasks_path(:order => 'created_at')
+      visit tasks_path(:order => 'created_at', :direction => 'ASC')
       expect(page).to have_content(/title1.+title0/)
     end
 
@@ -69,7 +69,7 @@ RSpec.feature "Tasks", type: :feature do
       visit tasks_path
       expect(page).to have_content(/title0.+title1/)
       
-      visit tasks_path(:order => 'priority')
+      visit tasks_path(:order => 'priority', :direction => 'DESC')
       expect(page).to have_content(/title1.+title0/)
     end
 
@@ -77,7 +77,7 @@ RSpec.feature "Tasks", type: :feature do
       visit tasks_path
       expect(page).to have_content(/title0.+title1/)
       
-      visit tasks_path(:order => 'status')
+      visit tasks_path(:order => 'status', :direction => 'ASC')
       expect(page).to have_content(/title1.+title0/)
     end
   end

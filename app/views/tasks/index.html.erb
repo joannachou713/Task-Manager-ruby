@@ -7,19 +7,19 @@
     <tr>
       <td><%= t('show.title') %></td>
       <td><%= t('show.created') %>
-        <%= link_to tasks_path(:order => 'created_at') do%>
+        <%= link_to tasks_path(:order => 'created_at', :direction => 'ASC') do%>
           <i class="fas fa-sort-down fa-lg ms-1"></i>
         <% end %>
       </td>
       <td><%= t('show.start') %></td>
       <td><%= t('show.end') %></td>
       <td><%= t('show.priority-text') %>
-        <%= link_to tasks_path(:order => 'priority') do%>
+        <%= link_to tasks_path(:order => 'priority', :direction => 'DESC') do%>
           <i class="fas fa-sort-down fa-lg ms-1"></i>
         <% end %>
       </td>
       <td><%= t('show.status-text') %>
-        <%= link_to tasks_path(:order => 'status') do%>
+        <%= link_to tasks_path(:order => 'status', :direction => 'ASC') do%>
           <i class="fas fa-sort-down fa-lg ms-1"></i>
         <% end %>
       </td>
@@ -30,7 +30,7 @@
   <tbody>
     <% @tasks.each do |task| %>
     <tr>
-      <td><%= task.title %></td>
+      <td><%= task.title %>//<%= task.id %></td>
       <td style="font-family: 'Roboto Mono', monospace;"><%= task.created_at.strftime("%Y %m %d - %I:%M %p") %></td>
       <td style="font-family: 'Roboto Mono', monospace;"><%= task.start.strftime("%Y %m %d - %I:%M %p") %></td>
       <td style="font-family: 'Roboto Mono', monospace;"><%= task.end.strftime("%Y %m %d - %I:%M %p") %></td>

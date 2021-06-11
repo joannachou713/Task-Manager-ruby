@@ -1,14 +1,8 @@
 class TasksController < ApplicationController
     def index
-        @tasks = Task.all.order('id')
-        if params[:order] == "created_at"
-            @tasks = Task.all.order('created_at ASC')
-        end
-        if params[:order] == "priority"
-            @tasks = Task.all.order('priority DESC')
-        end
-        if params[:order] == "status"
-            @tasks = Task.all.order('status ASC')
+        @tasks = Task.all.order('id ASC')
+        if params[:order]&&params[:direction]
+            @tasks = Task.all.order("#{params[:order]} #{params[:direction]}")
         end
     end
     
