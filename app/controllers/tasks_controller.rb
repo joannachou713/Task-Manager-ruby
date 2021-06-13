@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
     def index
         @tasks = Task.all.order('id ASC')
-        if params[:order]&&params[:direction]
+        if params[:order] && params[:direction]
             @tasks = Task.all.order("#{params[:order]} #{params[:direction]}")
         end
     end
