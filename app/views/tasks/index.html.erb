@@ -1,18 +1,19 @@
 <h1 class="mb-3">Task Manager</h1>
 <%= link_to t('show.new'), new_task_path, class:"btn btn-primary mb-3"%>
+<%= search_form_for @q do |f| %>
+  <%= f.label :title_cont %>
+  <%= f.search_field :title_cont %>
+  
+  <%= f.label :priority_eq, t('show.priority-text'), class: "form-label" %>
+  <%= f.select :priority_eq, options_for_select([[t('show.priority')[0], 0], [t('show.priority')[1], 1], [t('show.priority')[2], 2]]) %>
 
+  <%= f.submit "Search", name: 'search'%>
+<% end %>
 
 <table class="table">
   <thead>
     <tr>
-      <td><%= t('show.title') %>
-        <%= search_form_for @q do |f| %>
-          <%= f.label :title_cont %>
-          <%= f.search_field :title_cont %>
-
-          <%= f.submit name: 'search'%>
-        <% end %>
-      </td>
+      <td><%= t('show.title') %></td>
       <td>
         <%= sort_link(@q, :created_at, t('show.created'), default_order: :ASC) %>
       </td>
