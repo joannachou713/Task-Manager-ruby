@@ -4,8 +4,8 @@
   <%= f.label :title_cont %>
   <%= f.search_field :title_cont %>
   
-  <%= f.label :priority_eq, t('show.priority-text'), class: "form-label" %>
-  <%= f.select :priority_eq, options_for_select([[t('show.priority')[0], 0], [t('show.priority')[1], 1], [t('show.priority')[2], 2]]) %>
+  <%= f.label :status_eq, t('show.status-text'), class: "form-label" %>
+  <%= f.select :status_eq, options_for_select([[t('show.status')[0], 0], [t('show.status')[1], 1], [t('show.status')[2], 2]]) %>
 
   <%= f.submit "Search", name: 'search'%>
 <% end %>
