@@ -55,3 +55,5 @@ en:
   successful-delete: Task deleted successfully.
   successful-update: Task updated successfully.
   successful-create: Task created successfully.
+  error:
+    end_start: End time must be greater than start time.

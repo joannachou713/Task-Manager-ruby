@@ -1,9 +1,7 @@
 class TasksController < ApplicationController
     def index
-        @tasks = Task.all.order('id ASC')
-        if params[:order]&&params[:direction]
-            @tasks = Task.all.order("#{params[:order]} #{params[:direction]}")
-        end
+        @q = Task.ransack(params[:q])
+        @tasks = @q.result
     end
     
 
@@ -54,7 +52,7 @@ class TasksController < ApplicationController
 
     private
     def task_params
-        params.require(:task).permit(:title, :content, :start, :end, :priority, :status)
+        params.require(:task).permit(:title, :content, :start, :endtime, :priority, :status)
     end
     
     

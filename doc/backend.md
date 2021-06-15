@@ -134,7 +134,7 @@ server 端請使用：
 - 以 `rails generate` 指令建立 CRUD 所需的 model 類別
 - 撰寫 migration 並以此建立資料表
 	- 非常重要：migration 要確定能安全回到上一步的狀態！請養成以 `redo` 確認的習慣
-	- rails db:migrate:redo : 回滾到前 n 步的狀態(`STEP=n`)，接著再遷移一次
+	- `rails db:migrate:redo` : 回滾到前 n 步的狀態(`STEP=n`)，接著再遷移一次
 - 以 `rails c` 指令，透過 model 確認有正確連接資料庫
 	- 順便試著以 ActiveRecord 建立資料
 - 在 GitHub 上發 PR 並請人 review
@@ -216,6 +216,7 @@ server 端請使用：
 
 - 在任務上加入狀態（待處理、進行中、完成）
 	- 【選項】不是初學者的話，可以使用管理 state 的 gem
+	- [AASM 教學](https://railsbook.tw/chapters/30-order.html)
 - 在列表頁面，要能夠以標題和狀態進行查詢
 	- 【選項】不是初學者的話，可以使用 ransack 等 gem
 - 在設定條件查詢時，請觀察 log 並確認 SQL 的變化
@@ -270,6 +271,7 @@ server 端請使用：
 - 刪除使用者後，也一併刪除該使用者的任務
 - 在使用者列表頁面，顯示使用者的任務數量
 - 能夠看到使用者所建立的任務列表
+- [加入搜尋/排序的 Authorization](https://5xruby.tw/posts/ransack-sorting)
 
 ### 步驟22: 為使用者加入角色
 
