@@ -24,12 +24,21 @@ RSpec.feature "Tasks", type: :feature do
       click_button 'commit'
       expect(page).to have_content(I18n.t('errors.messages.blank'))
     end
+
+
+    scenario "failed (end<create)" do
+      within('form') do
+        select('2016', :from => 'task_endtime_1i')
+      end
+      click_button 'commit'
+      expect(page).to have_content(I18n.t('error.end_start'))
+    end
   end
 
 
   context "update tasks" do
     scenario "should be successful" do
-      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, end: (DateTime.now + 1.week), priority: 0, status: 0)
+      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 0)
       visit edit_task_path(task)
       within('form') do
         fill_in 'task_title', with: '測試修改'
@@ -43,9 +52,9 @@ RSpec.feature "Tasks", type: :feature do
   
   context "destory tasks" do
     scenario "should be successful" do
-      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, end: (DateTime.now + 1.week), priority: 0, status: 0)
+      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 0)
       visit tasks_path
-      expect{ click_link I18n.t('delete') }.to change(Task, :count).by(-1)
+      expect{ click_link 'delete-1' }.to change(Task, :count).by(-1)
       expect(page).to have_content(I18n.t('successful-delete'))
     end
   end
@@ -53,15 +62,27 @@ RSpec.feature "Tasks", type: :feature do
 
   context "sort tasks" do
     before(:each) do
-      task = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now, start: DateTime.now, end: (DateTime.now + 1.week), priority: 1, status: 0)
-      task1 = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour, start: DateTime.now, end: (DateTime.now + 1.week), priority: 0, status: 1)
+      task = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour, start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 1)
+      task1 = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now, start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 1, status: 0)
+    end
+
+    scenario "search by title" do
+      visit tasks_path
+      expect(page).to have_content(/title0.+title1/)
+
+      within('form') do
+        fill_in 'q_title_cont', with: 'title1'
+      end
+      click_button 'search'
+      expect(page).to have_no_content(/title0/)
+
     end
 
     scenario "sort by creation time" do
       visit tasks_path
       expect(page).to have_content(/title0.+title1/)
       
-      visit tasks_path(:order => 'created_at', :direction => 'ASC')
+      click_link I18n.t('show.created')
       expect(page).to have_content(/title1.+title0/)
     end
 
@@ -69,7 +90,7 @@ RSpec.feature "Tasks", type: :feature do
       visit tasks_path
       expect(page).to have_content(/title0.+title1/)
       
-      visit tasks_path(:order => 'priority', :direction => 'DESC')
+      click_link I18n.t('show.priority-text')
       expect(page).to have_content(/title1.+title0/)
     end
 
@@ -77,7 +98,7 @@ RSpec.feature "Tasks", type: :feature do
       visit tasks_path
       expect(page).to have_content(/title0.+title1/)
       
-      visit tasks_path(:order => 'status', :direction => 'ASC')
+      click_link I18n.t('show.status-text')
       expect(page).to have_content(/title1.+title0/)
     end
   end

@@ -8,36 +8,36 @@
     <%= f.label :start, t('show.start'), class: "form-label" %>
     <%= f.datetime_select :start %> <br />
   
-    <%= f.label :end, t('show.end'), class: "form-label" %>
-    <%= f.datetime_select :end %> <br />
+    <%= f.label :endtime, t('show.end'), class: "form-label" %>
+    <%= f.datetime_select :endtime %> <br />
 
     <%= f.label :priority, t('show.priority-text'), class: "form-label" %>
     <div class="form-check">
         <%= f.radio_button :priority, 2, class: "form-check-label" %>
-        <%= f.label :priority, t('show.priority.high'), :value => "2", class: "form-check-label" %>
+        <%= f.label :priority, t('show.priority')[2], :value => "2", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :priority, 1, class: "form-check-label" %>
-        <%= f.label :priority, t('show.priority.medium'), :value => "1", class: "form-check-label" %>
+        <%= f.label :priority, t('show.priority')[1], :value => "1", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :priority, 0, class: "form-check-label" %>
-        <%= f.label :priority, t('show.priority.low'), :value => "0", class: "form-check-label" %><br />
+        <%= f.label :priority, t('show.priority')[0], :value => "0", class: "form-check-label" %><br />
     </div>
         
 
     <%= f.label :status, t('show.status-text'), class: "form-label" %>
     <div class="form-check">
         <%= f.radio_button :status, 0, class: "form-check-label" %>
-        <%= f.label :status, t('show.status.pending'), :value => "0", class: "form-check-label" %>
+        <%= f.label :status, t('show.status')[0], :value => "0", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :status, 1, class: "form-check-label" %>
-        <%= f.label :status, t('show.status.ongoing'), :value => "1", class: "form-check-label" %>
+        <%= f.label :status, t('show.status')[1], :value => "1", class: "form-check-label" %>
     </div>
     <div class="form-check">
         <%= f.radio_button :status, 2, class: "form-check-label" %>    
-        <%= f.label :status, t('show.status.finished'), :value => "2", class: "form-check-label" %><br />
+        <%= f.label :status, t('show.status')[2], :value => "2", class: "form-check-label" %><br />
     </div>
 
     <%= f.submit %>

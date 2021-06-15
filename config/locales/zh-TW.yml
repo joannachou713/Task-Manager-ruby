@@ -24,3 +24,5 @@
   successful-delete: 任務成功刪除
   successful-update: 任務成功更新
   successful-create: 任務成功新增
+  error:
+    end_start: 結束時間必須晚於開始時間
