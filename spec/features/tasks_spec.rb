@@ -75,7 +75,17 @@ RSpec.feature "Tasks", type: :feature do
       end
       click_button 'search'
       expect(page).to have_no_content(/title0/)
+    end
 
+    scenario "filter by status" do
+      visit tasks_path
+      expect(page).to have_content(/title0.+title1/)
+
+      within('form') do
+        select(I18n.t('show.status')[0], :from => 'q_status_eq')
+      end
+      click_button 'search'
+      expect(page).to have_no_content(/title0/)
     end
 
     scenario "sort by creation time" do
