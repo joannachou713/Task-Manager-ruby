@@ -1,0 +1,8 @@
+<h1 class="mb-3"><%= @task.title %></h1>
+<%= @task.start %>
+<%= @task.endtime %>
+<%= @task.content %>
+<%= t('show.priority')[@task.priority] %>
+<%= t('show.status')[@task.status] %>
+<br>
+<%= link_to t('show.back'), tasks_path %>

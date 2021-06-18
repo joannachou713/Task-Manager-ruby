@@ -19,6 +19,9 @@
       - 已完成
     back: 回到任務列表
     label: 標籤
+  filter:
+    title: 過濾標題
+    status: 過濾狀態
   edit: 編輯
   delete: 刪除
   successful-delete: 任務成功刪除

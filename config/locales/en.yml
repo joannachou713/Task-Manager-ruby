@@ -50,6 +50,9 @@ en:
       - Finished
     back: Back to Task List
     label: Label
+  filter:
+    title: 過濾標題
+    status: 過濾狀態
   edit: Edit
   delete: Delete
   successful-delete: Task deleted successfully.

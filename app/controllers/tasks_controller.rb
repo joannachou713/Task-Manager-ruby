@@ -1,12 +1,19 @@
 class TasksController < ApplicationController
     def index
         @q = Task.ransack(params[:q])
-        @tasks = @q.result
+        @tasks = @q.result.page(params[:page])
+
+        @tasks = @tasks.order('id ASC').page(params[:page]).per(9)
     end
     
 
     def new
         @task = Task.new
+    end
+
+
+    def show
+        @task = Task.find(params[:id])
     end
 
 
