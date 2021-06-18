@@ -25,6 +25,8 @@ gem 'rexml'
 gem 'rails-i18n'
 gem 'ransack'
 gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
+gem "bootstrap_form", "~> 4.0"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

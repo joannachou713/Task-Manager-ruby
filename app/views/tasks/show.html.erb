@@ -1,8 +1,23 @@
-<h1 class="mb-3"><%= @task.title %></h1>
-<%= @task.start %>
-<%= @task.endtime %>
-<%= @task.content %>
-<%= t('show.priority')[@task.priority] %>
-<%= t('show.status')[@task.status] %>
-<br>
-<%= link_to t('show.back'), tasks_path %>
+<div class="pb-5 d-flex flex-column align-items-center">
+
+  <h1 class="mb-3 title text-center fw-normal"><%= @task.title %></h1>
+  <div class="shadow panel p-5 w-75">
+
+    <div class='row mt-3'><div class='col-2'><%= t('show.start') %></div><div class='col-10'><%= @task.start.strftime("%m %d, %Y") %></div></div>
+    <div class='row mt-2'><div class='col-2'><%= t('show.end') %></div><div class='col-10'><%= @task.endtime.strftime("%m %d, %Y") %></div></div>
+
+        
+    <div class='mt-3 row'>
+      <div class='col-2'><%= t('show.content') %></div><div class='col-10'><%= @task.content %></div>
+    </div>
+
+
+    <div class='row mt-3'><div class='col-2'>優先度</div><div class='col-10'><span class="badge priority-<%= @task.priority %>"><%= t('show.priority')[@task.priority] %></span></div></div>
+    <div class='row mt-2'><div class='col-2'>狀態</div><div class='col-10'><span class="badge status-<%= @task.status %>"><%= t('show.status')[@task.status] %></span></div></div>
+
+
+
+  </div>
+
+  <%= link_to t('show.back'), tasks_path, class:"btn btn-primary mt-4"%>
+</div>
