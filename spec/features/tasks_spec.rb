@@ -14,6 +14,8 @@ RSpec.feature "Tasks", type: :feature do
     scenario "should be successful" do
       within('form') do
         fill_in 'task_title', with: 'new task test'
+        fill_in 'task_start', with: DateTime.now
+        fill_in 'task_endtime', with: DateTime.now+1.week
       end
       click_button 'commit'
       expect(page).to have_content(I18n.t('successful-create'))
@@ -28,7 +30,8 @@ RSpec.feature "Tasks", type: :feature do
 
     scenario "failed (end<create)" do
       within('form') do
-        select('2016', :from => 'task_endtime_1i')
+        fill_in 'task_start', with: DateTime.now
+        fill_in 'task_endtime', with: DateTime.now-1.week
       end
       click_button 'commit'
       expect(page).to have_content(I18n.t('error.end_start'))

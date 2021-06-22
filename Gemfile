@@ -27,7 +27,7 @@ gem 'ransack'
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 gem "bootstrap_form", "~> 4.0"
-
+gem 'bcrypt'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
