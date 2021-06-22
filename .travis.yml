@@ -11,6 +11,7 @@ services:
   - postgresql
 script:
   - bundle exec rake db:migrate:reset RAILS_ENV=test
+  — bundle exec rake db:migrate
   - RAILS_ENV=test rails webpacker:compile
   - bundle exec rspec
 branches:
