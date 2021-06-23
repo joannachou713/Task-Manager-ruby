@@ -41,7 +41,8 @@ RSpec.feature "Tasks", type: :feature do
 
   context "update tasks" do
     scenario "should be successful" do
-      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 0)
+      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now,
+        endtime: (DateTime.now + 1.week), priority: 0, status: 0, user: User.first)
       visit edit_task_path(task)
       within('form') do
         fill_in 'task_title', with: '測試修改'
@@ -55,7 +56,8 @@ RSpec.feature "Tasks", type: :feature do
   
   context "destory tasks" do
     scenario "should be successful" do
-      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 0)
+      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now,
+        endtime: (DateTime.now + 1.week), priority: 0, status: 0, user: User.first)
       visit tasks_path
       expect{ click_link 'delete-1' }.to change(Task, :count).by(-1)
       expect(page).to have_content(I18n.t('successful-delete'))
@@ -65,8 +67,10 @@ RSpec.feature "Tasks", type: :feature do
 
   context "sort tasks" do
     before(:each) do
-      task = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour, start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 1)
-      task1 = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now, start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 1, status: 0)
+      task = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour,
+        start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 1, user: User.first)
+      task1 = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now,
+        start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 1, status: 0, user: User.first)
     end
 
     scenario "search by title" do
