@@ -1,105 +1,15 @@
 // Place all the styles related to the task controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-body {
-  font-family: "Quicksand", sans-serif !important;
-  background: rgb(127, 127, 213);
-  background: linear-gradient(
-    180deg,
-    rgba(127, 127, 213, 1) 0%,
-    rgba(134, 168, 231, 1) 50%,
-    rgb(145, 216, 234) 100%
-  );
-}
-
-a, .btn-primary, .btn-outline-secondary {
-  color: #5f76e8 !important;
-}
-
-.btn-primary {
-  background-color: #e0e6ff !important;
-  border: none !important;
-}
-
-.btn-outline-primary {
-  color: #e0e6ff !important;
-  border-color: #e0e6ff !important;
-}
-
-.btn-outline-primary:hover {
-  color: #7f7fd5 !important;
-  background-color: #e0e6ff !important;
-}
-
-.btn-outline-secondary{
-  border-color: #5f76e8 !important;
-  background-color: transparent!important;
-}
-
-.btn-outline-secondary:hover{
-  background-color: #5f76e8 !important;
-  color: #e0e6ff!important;
-}
-
-.status-2 {
-  background-color: #84c4eb;
-}
-
-.status-1 {
-  background-color: #93eb8a;
-}
-
-.status-0 {
-  background-color: #ebbc75;
-}
-
-.priority-2 {
-  background-color: #eb8484;
-}
-
-.priority-1 {
-  background-color: #ebbc75;
-}
-
-.priority-0 {
-  background-color: #93eb8a;
-}
-
-.badge {
-  font-size: 0.9rem !important;
-}
-
-.table {
-  --bs-table-hover-bg: #f5f8ff !important;
-}
-
-.rounded {
-  border-radius: 2rem !important;
-}
 
 .time {
   font-family: "Roboto Mono", monospace;
-}
-
-.title,
-.filter-title,
-input#q_title_cont::placeholder {
-  color: #e0e6ff !important;
 }
 
 input#q_title_cont,
 select#q_status_eq {
   background-color: transparent;
   color: #e0e6ff;
-}
-
-html {
-  min-height: 100% !important;
-}
-
-body > div.container.pt-5 > nav {
-  display: flex;
-  justify-content: center;
 }
 
 .page-item .page-link {
@@ -118,11 +28,7 @@ body > div.container.pt-5 > nav {
   border-color: rgba(134, 168, 231, 1) !important;
 }
 
-.panel {
-  border-radius: 2rem;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-#task_start, #task_endtime{
-  width: 80%!important;
+#task_start,
+#task_endtime {
+  width: 80% !important;
 }

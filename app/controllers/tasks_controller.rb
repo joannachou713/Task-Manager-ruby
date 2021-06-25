@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :logged_in_user, only: [:show, :new, :create, :edit, :update, :destroy]
+
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result.page(params[:page])
@@ -19,11 +21,12 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id if current_user
 
     if @task.save
       redirect_to tasks_path, notice: I18n.t('successful-create')
     else
-      flash[:notice] = @task.errors.full_messages.to_sentence
+      flash[:danger] = @task.errors.full_messages.to_sentence
       render :new
     end
   end

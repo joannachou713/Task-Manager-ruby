@@ -20,10 +20,45 @@
   </head>
 
   <body>
+
+    <nav class="px-5 navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="fas fa-cloud-moon me-2"></i>Task Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <% if logged_in? %>
+              <li class="nav-item">
+                <%= link_to 'Task List',root_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Profile", current_user, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Settings", '#', class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Log out", logout_path, method: "delete", id: 'logout', class: 'nav-link' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Log in', login_path, class: 'nav-link' %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div class='container pt-5'>  
-      <% flash.each do |message_type, message| %>
-        <div class='alert alert-<%= message_type %>'><%= message %></div>
-      <% end %>
+      <div class='d-flex flex-column justify-content-center align-items-center'>
+        <% flash.each do |message_type, message| %>
+          <div class='alert alert-<%= message_type %>'><%= message %></div>
+        <% end %>
+      </div>
+
       <%= yield %>
       <%= debug(params) if Rails.env.development?%>
     </div>

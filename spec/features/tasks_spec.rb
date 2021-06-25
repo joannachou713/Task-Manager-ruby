@@ -1,8 +1,16 @@
 require 'rails_helper'
+require 'helpers'
+
+RSpec.configure do |c|
+  c.include Helpers
+end
 
 RSpec.feature "Tasks", type: :feature do
   context "create new tasks" do
     before(:each) do
+      sign_in
+
+      # visit new tasks
       visit new_task_path
       within('form') do
         choose 'task_priority_2'
@@ -41,6 +49,7 @@ RSpec.feature "Tasks", type: :feature do
 
   context "update tasks" do
     scenario "should be successful" do
+      sign_in
       task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now,
         endtime: (DateTime.now + 1.week), priority: 0, status: 0, user: User.first)
       visit edit_task_path(task)
@@ -56,6 +65,7 @@ RSpec.feature "Tasks", type: :feature do
   
   context "destory tasks" do
     scenario "should be successful" do
+      sign_in
       task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now,
         endtime: (DateTime.now + 1.week), priority: 0, status: 0, user: User.first)
       visit tasks_path
@@ -67,6 +77,7 @@ RSpec.feature "Tasks", type: :feature do
 
   context "sort tasks" do
     before(:each) do
+      sign_in
       task = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour,
         start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 1, user: User.first)
       task1 = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now,

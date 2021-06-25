@@ -17,7 +17,116 @@
 @import "bootstrap";
 @import "rails_bootstrap_forms";
 
+a {
+  text-decoration: none !important;
+}
 
-a{
-    text-decoration: none!important;
+body {
+  font-family: "Quicksand", sans-serif !important;
+  background: rgb(127, 127, 213);
+  background: linear-gradient(
+    180deg,
+    rgba(127, 127, 213, 1) 0%,
+    rgba(134, 168, 231, 1) 50%,
+    rgb(145, 216, 234) 100%
+  );
+}
+
+.alert{
+  width: 50%!important;
+  text-align: center;
+}
+
+a,
+.btn-primary,
+.btn-outline-secondary {
+  color: #5f76e8 !important;
+}
+
+.btn-primary {
+  background-color: #e0e6ff !important;
+  border: none !important;
+}
+
+.btn-outline-primary {
+  color: #e0e6ff !important;
+  border-color: #e0e6ff !important;
+}
+
+.btn-outline-primary:hover {
+  color: #7f7fd5 !important;
+  background-color: #e0e6ff !important;
+}
+
+.btn-outline-secondary {
+  border-color: #5f76e8 !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #5f76e8 !important;
+  color: #e0e6ff !important;
+}
+
+.status-2 {
+  background-color: #84c4eb;
+}
+
+.status-1 {
+  background-color: #93eb8a;
+}
+
+.status-0 {
+  background-color: #ebbc75;
+}
+
+.priority-2 {
+  background-color: #eb8484;
+}
+
+.priority-1 {
+  background-color: #ebbc75;
+}
+
+.priority-0 {
+  background-color: #93eb8a;
+}
+
+.badge {
+  font-size: 0.9rem !important;
+}
+
+.table {
+  --bs-table-hover-bg: #f5f8ff !important;
+}
+
+.rounded {
+  border-radius: 2rem !important;
+}
+
+.title,
+.filter-title,
+input#q_title_cont::placeholder {
+  color: #e0e6ff !important;
+}
+
+html {
+  min-height: 100% !important;
+}
+
+body > div.container.pt-5 > nav {
+  display: flex;
+  justify-content: center;
+}
+
+.panel {
+  border-radius: 2rem;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+#prevent-login {
+  height: 30rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
