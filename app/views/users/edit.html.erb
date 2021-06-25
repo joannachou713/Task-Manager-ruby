@@ -1,13 +1,11 @@
-<% content_for(:title, "Sign up") %>
+<% content_for(:title, "Update Profile") %>
 <div class="d-flex flex-column justify-content-center align-items-center">
 <h1 class="mb-3 title text-center">
-<% if current_user.admin?%>
-  Create New User
-  <% submit_text = 'Create' %>
-<% else %>
-  Sign up
-  <% submit_text = 'Create My Account' %>
-<% end %>
+  <% if current_user.id == @user.id %>
+    Update Your Profile
+  <% else %>
+    Update User Profile
+  <% end %>
 </h1>
 
 <div class="shadow panel p-4 w-25">
@@ -20,11 +18,12 @@
   
   <div class='mb-3'><%= f.text_field :tel, label: '' %></div>
   
-  <div class='mb-3'><%= f.password_field :password, label: '' %></div>
-  
-  <div class='mb-4'><%= f.password_field :password_confirmation, label: '' %></div>
+  <% if current_user.id == @user.id %>
+    <div class='mb-3'><%= f.password_field :password, label: '' %></div>
+    <div><%= f.password_field :password_confirmation, label: '' %></div>
+  <% end %>
 
-  <div class="d-flex justify-content-center"><%= f.submit "#{submit_text}", class: 'btn btn-outline-secondary' %></div>
+  <div class="d-flex justify-content-center mt-4"><%= f.submit "Save Changes", class: 'btn btn-outline-secondary' %></div>
 
 <% end %>
 

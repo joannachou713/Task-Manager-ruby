@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :tasks
+  has_many :tasks, dependent: :delete_all
 
   attr_accessor :remember_token
   before_save { self.email = email.downcase }

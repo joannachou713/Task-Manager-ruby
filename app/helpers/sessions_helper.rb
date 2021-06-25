@@ -30,14 +30,6 @@ module SessionsHelper
     !current_user.nil?
   end
 
-   # Confirms a logged-in user.
-  def logged_in_user
-    unless logged_in?
-       flash[:danger] = "Please log in."
-       redirect_to login_path
-    end
-  end
-
   # Forgets a persistent session
   def forget(user)
     user.forget
@@ -50,5 +42,24 @@ module SessionsHelper
     forget(current_user)
     session.delete(:user_id)
     @current_user = nil
+  end
+
+
+   # Confirms a logged-in user.
+   def logged_in_user
+    unless logged_in?
+       flash[:danger] = "Please log in."
+       redirect_to login_path
+    end
+  end
+
+  # Confirms the correct user
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(user_path(current_user)) unless (@user == current_user || current_user.admin?)
+  end
+
+  def current_user?(user)
+    user && user == current_user
   end
 end

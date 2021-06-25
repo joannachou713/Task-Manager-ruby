@@ -60,3 +60,6 @@ en:
   successful-create: Task created successfully.
   error:
     end_start: End time must be greater than start time.
+  views:
+    pagination:
+      truncate: "&hellip;"

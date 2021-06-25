@@ -1,4 +1,9 @@
 require 'rails_helper'
+require 'helpers'
+
+RSpec.configure do |c|
+  c.include Helpers
+end
 
 RSpec.feature "Users", type: :feature do
   before(:each) do
@@ -30,6 +35,43 @@ RSpec.feature "Users", type: :feature do
       click_button 'commit'
       expect(User.count).to eq(@before_count+1)
       expect(page).to have_content('Welcome to Task Manager!')
+    end
+  end
+
+  context 'Update profiles' do
+    it 'invalid update infos' do
+      sign_in
+      click_link 'Settings'
+
+      within('form') do
+        fill_in 'user_name', with:''
+        fill_in 'user_email', with:''
+      end
+      click_button 'commit'
+      expect(page).to have_content('不能為空白')
+    end
+
+    it 'valid update infos' do
+      sign_in
+      click_link 'Settings'
+
+      within('form') do
+        fill_in 'user_name', with:'newname'
+        fill_in 'user_email', with:'newname@newname.com'
+        fill_in 'user_password', with:'foobar'
+        fill_in 'user_password_confirmation', with:'foobar'
+      end
+      click_button 'commit'
+      expect(page).to have_content('newname@newname.com')
+    end
+
+    it 'protect not logged in' do
+      sign_up
+      click_link 'logout'
+      visit '/users/1/edit'
+      expect(page).to have_content('Please log in.')
+      visit '/users/1'
+      expect(page).to have_content('Please log in.')
     end
   end
 end

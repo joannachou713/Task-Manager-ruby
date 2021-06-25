@@ -2,10 +2,14 @@ class TasksController < ApplicationController
   before_action :logged_in_user, only: [:show, :new, :create, :edit, :update, :destroy]
 
   def index
-    @q = Task.ransack(params[:q])
-    @tasks = @q.result.page(params[:page])
+    if current_user
+      @q = Task.where(user_id: current_user.id).ransack(params[:q])
+      @tasks = @q.result.page(params[:page])
 
-    @tasks = @tasks.order('id ASC').page(params[:page]).per(9)
+      @tasks = @tasks.order('id ASC').page(params[:page]).per(9)
+    else
+      render :index
+    end
   end
   
 

@@ -2,6 +2,8 @@
 
   <h1 class="mb-3 title text-center fw-normal"><%= @task.title %></h1>
   <div class="shadow panel p-5 w-75">
+  <%= @task.user.name %>
+  <%= @task.user.email %>
 
     <div class='row mt-3'><div class='col-2'><%= t('show.start') %></div><div class='col-10'><%= @task.start.strftime("%m %d, %Y") %></div></div>
     <div class='row mt-2'><div class='col-2'><%= t('show.end') %></div><div class='col-10'><%= @task.endtime.strftime("%m %d, %Y") %></div></div>

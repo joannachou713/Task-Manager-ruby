@@ -130,3 +130,19 @@ body > div.container.pt-5 > nav {
   align-items: center;
   display: flex;
 }
+
+.page-item .disabled, .page-item .page-link {
+  background: rgba(255, 255, 255, 0.7)!important;
+}
+
+.page-item .disabled:hover, .page-item .page-link:hover {
+  background-color: #f5f8ff;
+  border-color: #f5f8ff;
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #f5f8ff !important;
+  background-color: rgba(134, 168, 231, 1) !important;
+  border-color: rgba(134, 168, 231, 1) !important;
+}

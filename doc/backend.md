@@ -262,6 +262,7 @@ server 端請使用：
 - 請改成只能看到自己建立的任務
 - 實做登出功能
 - 加入頭貼: `gravatar_for` in user_helper
+- 10.2.3_friendly_forwarding
 
 ### 步驟21: 使用者管理頁面
 
@@ -272,7 +273,6 @@ server 端請使用：
 - 刪除使用者後，也一併刪除該使用者的任務
 - 在使用者列表頁面，顯示使用者的任務數量
 - 能夠看到使用者所建立的任務列表
-- [加入搜尋/排序的 Authorization](https://5xruby.tw/posts/ransack-sorting)
 
 ### 步驟22: 為使用者加入角色
 

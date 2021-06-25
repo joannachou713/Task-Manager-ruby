@@ -29,3 +29,6 @@
   successful-create: 任務成功新增
   error:
     end_start: 結束時間必須晚於開始時間
+  views:
+    pagination:
+      truncate: "&hellip;"
