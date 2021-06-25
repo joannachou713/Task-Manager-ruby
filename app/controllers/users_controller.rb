@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     if !current_user.admin?
+      flash[:danger] = "權限不足 無法存取"
       redirect_to user_path(session[:user_id])
     end
     @users = User.includes(:tasks).order('id ASC').page(params[:page]).per(9)
