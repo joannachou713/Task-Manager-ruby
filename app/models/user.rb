@@ -12,7 +12,18 @@ class User < ApplicationRecord
   validates :tel, presence: true, length: {maximum: 10}
 
   has_secure_password
-  validates :password, length: {minimum: 6}
+  validates :password, length: {minimum: 6}, allow_nil: true
+  
+  # Admin deletion settings
+  scope :admin_count, -> { where(admin: true).count}
+  before_save :validate_admin_update
+  def validate_admin_update
+    print('----------------------------------------------------------------')
+    print("#{:admin_count.inspect}")
+    if self.admin_changed?(from: 1, to: 0) && :admin_count == 1
+      false
+    end
+  end
 
   # Returns the hash digest of the given string
   def User.digest(string)

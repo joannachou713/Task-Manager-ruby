@@ -19,8 +19,25 @@
   <div class='mb-3'><%= f.text_field :tel, label: '' %></div>
   
   <% if current_user.id == @user.id %>
+    <div class='mt-4'>變更密碼</div>
     <div class='mb-3'><%= f.password_field :password, label: '' %></div>
     <div><%= f.password_field :password_confirmation, label: '' %></div>
+  <% end %>
+  <%#  &&  %>
+  <% if current_user.admin? %>
+    <div>管理員設置</div>
+    <% if @user.admin? %>
+      <% if !current_user?(@user) %>
+        <div>此用戶為管理員</div>
+        <div><%= f.radio_button :admin, 0, label: '將此用戶從管理員移除' %></div>
+      <% else %>
+        <div><%= f.radio_button :admin, 0, label: '退出管理員' %></div>
+      <% end %>
+    <% else %>
+      <div><%= f.radio_button :admin, 1, label: '將此用戶設定為管理員' %></div>
+    <% end %>
+
+
   <% end %>
 
   <div class="d-flex justify-content-center mt-4"><%= f.submit "Save Changes", class: 'btn btn-outline-secondary' %></div>

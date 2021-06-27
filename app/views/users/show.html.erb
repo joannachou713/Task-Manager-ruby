@@ -3,6 +3,10 @@
 <%= @user.name %>, <%= @user.email %>
 <br>
 <% if current_user.admin? %>
+  <% if @user.admin %>
+   此用戶為管理員
+  <% end %>
+<br><br>
   <%= @user.tasks.each do |task| %>
     <%= task.title %><br>
     <%= task.start %><br>

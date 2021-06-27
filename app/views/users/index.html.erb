@@ -23,13 +23,13 @@
           <%= link_to edit_user_path(user) do %>
             <i class="fas fa-pen "></i>
           <% end %>
-        <% if !current_user?(user) %>
+         <% if !current_user?(user) %> 
           <%= link_to user, method: :delete ,data: {confirm: "You sure?"} do%>
             <i class="fas fa-trash-alt ms-3"></i>
           <% end %>
-        <% else %>
-            <i class="fas fa-trash-alt ms-3 text-white-50"></i>
-        <% end %>
+         <% else %> 
+             <i class="fas fa-trash-alt ms-3 text-white-50"></i>
+         <% end %> 
       </td>
     </tr>
   <% end %>

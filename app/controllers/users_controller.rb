@@ -44,11 +44,20 @@ class UsersController < ApplicationController
 
 
   def update
-    if @user.update(user_params)
-      flash[:success] = "User updated successfully"
-      redirect_to @user
+    if current_user.admin? && !current_user?(@user)
+      if @user.update(admin_params)
+        flash[:success] = "User updated successfully"
+        redirect_to admin_path
+      else
+        render :edit
+      end
     else
-      render :edit
+      if @user.update(user_params)
+        flash[:success] = "User updated successfully"
+        redirect_to @user
+      else
+        render :edit
+      end
     end
   end
 
@@ -64,6 +73,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :tel, :password, :password_confirmation)
+  end
+
+  def admin_params
+    params.require(:user).permit(:name, :email, :tel, :admin)
   end
   
   
