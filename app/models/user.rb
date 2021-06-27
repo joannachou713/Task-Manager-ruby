@@ -18,10 +18,9 @@ class User < ApplicationRecord
   scope :admin_count, -> { where(admin: true).count}
   before_save :validate_admin_update
   def validate_admin_update
-    print('----------------------------------------------------------------')
-    print("#{:admin_count.inspect}")
-    if self.admin_changed?(from: 1, to: 0) && :admin_count == 1
-      false
+    if self.admin_changed?(from: true, to: false) && User.admin_count == 1
+      errors.add :admin, message: '管理員只剩一個ㄌ！'
+      throw :abort
     end
   end
 

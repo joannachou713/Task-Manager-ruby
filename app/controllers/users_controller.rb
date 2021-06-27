@@ -44,11 +44,12 @@ class UsersController < ApplicationController
 
 
   def update
-    if current_user.admin? && !current_user?(@user)
+    if current_user.admin?
       if @user.update(admin_params)
         flash[:success] = "User updated successfully"
         redirect_to admin_path
       else
+        flash[:danger] = @user.errors.full_messages.to_sentence
         render :edit
       end
     else
@@ -76,7 +77,7 @@ class UsersController < ApplicationController
   end
 
   def admin_params
-    params.require(:user).permit(:name, :email, :tel, :admin)
+    params.require(:user).permit(:name, :email, :tel, :password, :password_confirmation, :admin)
   end
   
   
