@@ -1,9 +1,3 @@
-<script>
-    var DOMContentLoaded_event = document.createEvent("Event")
-    DOMContentLoaded_event.initEvent("DOMContentLoaded", true, true)
-    window.document.dispatchEvent(DOMContentLoaded_event)
-</script>
-
 <div class="shadow panel p-5 w-75">
     <%= bootstrap_form_for(task) do |f| %>
         <%= f.text_field :title, class: "form-control mb-4", label: t('show.title')%> 
