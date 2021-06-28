@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index
     if !current_user.admin?
-      flash[:danger] = "權限不足 無法存取"
+      flash[:danger] = t('flash.user.nopermit')
       redirect_to user_path(session[:user_id])
     end
     @users = User.includes(:tasks).order('id ASC').page(params[:page]).per(9)
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      flash[:success] = 'Welcome to Task Manager!'
+      flash[:success] = t('flash.task.welcome')
       redirect_to user_path(@user)
     else
       render :new
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   def update
     if current_user.admin?
       if @user.update(admin_params)
-        flash[:success] = "User updated successfully"
+        flash[:success] = t('flash.user.successful-update')
         redirect_to admin_path
       else
         flash[:danger] = @user.errors.full_messages.to_sentence
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
       end
     else
       if @user.update(user_params)
-        flash[:success] = "User updated successfully"
+        flash[:success] = t('flash.user.successful-update')
         redirect_to @user
       else
         render :edit
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted successfully"
+    flash[:success] = t('flash.user.successful-delete')
     redirect_to admin_path
   end
 
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
   
   
   def handle_record_not_found
-    flash[:notice] = "Record Not Found"
+    flash[:notice] = t('flash.notfound')
     redirect_to :action => 'index'
   end
 

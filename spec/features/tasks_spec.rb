@@ -25,7 +25,7 @@ RSpec.feature "Tasks", type: :feature do
         fill_in 'task_endtime', with: DateTime.now+1.week
       end
       click_button 'commit'
-      expect(page).to have_content(I18n.t('successful-create'))
+      expect(page).to have_content(I18n.t('flash.task.successful-create'))
     end
     
     
@@ -41,7 +41,7 @@ RSpec.feature "Tasks", type: :feature do
         fill_in 'task_endtime', with: DateTime.now-1.week
       end
       click_button 'commit'
-      expect(page).to have_content(I18n.t('error.end_start'))
+      expect(page).to have_content(I18n.t('flash.task.end_start'))
     end
   end
 
@@ -56,7 +56,7 @@ RSpec.feature "Tasks", type: :feature do
         fill_in 'task_title', with: '測試修改'
       end
       click_button 'commit'
-      expect(page).to have_content(I18n.t('successful-update'))
+      expect(page).to have_content(I18n.t('flash.task.successful-update'))
       expect(page).to have_content('測試修改')
     end
   end
@@ -69,7 +69,7 @@ RSpec.feature "Tasks", type: :feature do
         endtime: (DateTime.now + 1.week), priority: 0, status: 0, user: User.first)
       visit tasks_path
       expect{ click_link 'delete-1' }.to change(Task, :count).by(-1)
-      expect(page).to have_content(I18n.t('successful-delete'))
+      expect(page).to have_content(I18n.t('flash.task.successful-delete'))
     end
   end
 

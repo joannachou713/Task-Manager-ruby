@@ -14,9 +14,10 @@ class SessionsController < ApplicationController
       else
         forget user
       end
-      redirect_to user
+      flash[:success] = t('flash.task.welcome')
+      redirect_to root_path
     else
-      flash.now[:danger] = 'Invalid email/password combination'
+      flash.now[:danger] = t('flash.user.failed')
       render 'new'
     end
   end

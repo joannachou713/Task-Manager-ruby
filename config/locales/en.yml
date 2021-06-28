@@ -24,11 +24,6 @@ en:
     status: 過濾狀態
   edit: Edit
   delete: Delete
-  successful-delete: Task deleted successfully.
-  successful-update: Task updated successfully.
-  successful-create: Task created successfully.
-  error:
-    end_start: End time must be greater than start time.
   views:
     pagination:
       truncate: "&hellip;"
@@ -55,3 +50,17 @@ en:
     new: Create New User
     task_count: Task Count 
     back-admin: Back to Admin Page
+  flash:
+    user:
+      login: Please Log in
+      nopermit: You have no permission
+      failed: Invalid email/password combination
+      successful-update: User profile updated successfully
+      successful-delete: User deleted successfully
+    task:
+      successful-create: Task created successfully
+      successful-delete: Task deleted successfully
+      successful-update: Task updated successfully
+      end_start: Start time must before end time
+      welcome: Welcome to Task Manager!
+    notfound: Record not found

@@ -10,7 +10,7 @@ class Task < ApplicationRecord
 
   def endtime_is_greater
     if endtime < start
-      errors.add :endtime, :endtime_is_greater, message: I18n.t('error.end_start')
+      errors.add :endtime, :endtime_is_greater, message: I18n.t('flash.task.end_start')
     end
   end
 end

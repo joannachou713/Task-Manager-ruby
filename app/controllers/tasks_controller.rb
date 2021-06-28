@@ -28,7 +28,7 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id if current_user
 
     if @task.save
-      redirect_to tasks_path, notice: I18n.t('successful-create')
+      redirect_to tasks_path, notice: t('flash.task.successful-create')
     else
       flash[:danger] = @task.errors.full_messages.to_sentence
       render :new
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      redirect_to tasks_path, notice: I18n.t('successful-update')
+      redirect_to tasks_path, notice: t('flash.task.successful-update')
     else
       flash[:notice] = @task.errors.full_messages.to_sentence
       render :edit
@@ -56,7 +56,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy if @task
-    redirect_to tasks_path, notice: I18n.t('successful-delete')
+    redirect_to tasks_path, notice: t('flash.task.successful-delete')
   end
   
 
@@ -70,7 +70,7 @@ class TasksController < ApplicationController
   
   
   def handle_record_not_found
-    flash[:notice] = "Record Not Found"
+    flash[:danger] = t('flash.notfound')
     redirect_to :action => 'index'
   end
 
@@ -79,7 +79,7 @@ class TasksController < ApplicationController
     task = Task.find(params[:id])
     user = task.user
     if user != current_user && !current_user.admin?
-      flash[:danger] = "權限不足"
+      flash[:danger] = t('flash.user.nopermit')
       redirect_to(root_path)
     end  
   end

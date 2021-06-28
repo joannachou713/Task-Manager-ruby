@@ -24,11 +24,6 @@
     status: 過濾狀態
   edit: 編輯
   delete: 刪除
-  successful-delete: 任務成功刪除
-  successful-update: 任務成功更新
-  successful-create: 任務成功新增
-  error:
-    end_start: 結束時間必須晚於開始時間
   views:
     pagination:
       truncate: "&hellip;"
@@ -55,3 +50,17 @@
     new: 新增使用者
     task_count: 任務數量 
     back-admin: 回到管理員頁面
+  flash:
+    user:
+      login: 請先登入
+      nopermit: 權限不足 無法存取
+      failed: 密碼或 Email 輸入錯誤 # 'Invalid email/password combination'
+      successful-update: 使用者成功更新
+      successful-delete: 使用者成功刪除
+    task:
+      successful-create: 任務成功新增
+      successful-delete: 任務成功刪除
+      successful-update: 任務成功更新
+      end_start: 結束時間必須晚於開始時間
+      welcome: 歡迎來到 Task Manager！
+    notfound: 找不到該紀錄

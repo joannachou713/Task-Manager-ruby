@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
    # Confirms a logged-in user.
    def logged_in_user
     unless logged_in?
-       flash[:danger] = "Please log in."
+       flash[:danger] = t('flash.user.login')
        redirect_to login_path
     end
   end

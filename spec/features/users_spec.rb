@@ -68,9 +68,9 @@ RSpec.feature "Users", type: :feature do
       sign_up
       click_link 'logout'
       visit '/users/1/edit'
-      expect(page).to have_content('Please log in.')
+      expect(page).to have_content(I18n.t('flash.user.login'))
       visit '/users/1'
-      expect(page).to have_content('Please log in.')
+      expect(page).to have_content(I18n.t('flash.user.login'))
     end
   end
 end
