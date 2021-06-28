@@ -78,7 +78,7 @@ class TasksController < ApplicationController
   def correct_task_user
     task = Task.find(params[:id])
     user = task.user
-    if user != current_user
+    if user != current_user && !current_user.admin?
       flash[:danger] = "權限不足"
       redirect_to(root_path)
     end  

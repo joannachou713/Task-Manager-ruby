@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   
   context "validation tests" do
-    before(:each) do
+    let!(:each) do
       @user = User.new(name: "Example User", email: "user@example.com",
         tel: "0912345678", password: '123456', password_confirmation: '123456') 
     end

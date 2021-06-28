@@ -6,8 +6,8 @@ RSpec.configure do |c|
 end
 
 RSpec.feature "Users", type: :feature do
-  before(:each) do
-    @before_count = User.count
+  let!(:before_count){ User.count }
+  let!(:signup) do
     visit signup_path
     within('form') do
       fill_in 'user_name', with: 'aaa'
@@ -27,13 +27,13 @@ RSpec.feature "Users", type: :feature do
         fill_in 'user_password_confirmation', with: ''
       end
       click_button 'commit'
-      expect(User.count).to eq(@before_count)
+      expect(User.count).to eq(before_count)
     end
 
 
     it "valid signup information" do
       click_button 'commit'
-      expect(User.count).to eq(@before_count+1)
+      expect(User.count).to eq(before_count+1)
       expect(page).to have_content('Welcome to Task Manager!')
     end
   end

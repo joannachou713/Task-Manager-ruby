@@ -20,6 +20,9 @@
 
 
   </div>
-
+<% if current_user.admin? && @task.user!=current_user %>
+  <%= link_to t('user.admin-text.back-profile'), user_path(@task.user), class:"btn btn-primary mt-4"%>
+<% else %>
   <%= link_to t('show.back'), tasks_path, class:"btn btn-primary mt-4"%>
+<% end %>
 </div>

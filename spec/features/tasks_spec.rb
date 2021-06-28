@@ -7,7 +7,7 @@ end
 
 RSpec.feature "Tasks", type: :feature do
   context "create new tasks" do
-    before(:each) do
+    let!(:login) do
       sign_in
 
       # visit new tasks
@@ -76,7 +76,7 @@ RSpec.feature "Tasks", type: :feature do
 
 
   context "sort tasks" do
-    before(:each) do
+    let!(:login) do
       sign_in
       task = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour,
         start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 1, user: User.first)
