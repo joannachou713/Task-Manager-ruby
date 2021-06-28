@@ -47,6 +47,7 @@
       out: 退出管理員
       remove: 將此用戶從管理員移除
       add: 將此用戶設定為管理員
+      oneleft: 管理員只剩一位，無法進行修改或退出
     save-changes: 確認變更
     tasklist: 此用戶的所有任務
     create: 加入時間

@@ -63,3 +63,25 @@ en:
   views:
     pagination:
       truncate: "&hellip;"
+  user:
+    set-password: Change Password
+    basic-settings: Basic Settings
+    basicinfo: Basic Information
+    name: Name
+    tel: Telephone
+    password: Password
+    password-confirmation: Password Confirmation
+    admin: Admin
+    admin-text:
+      is: This user is an admin
+      settings: Admin Settings
+      out: Cancel admin identity
+      remove: Remove this user from admin list
+      add: Add this user to admin list
+      oneleft: Only one admin left
+    save-changes: Save Changes
+    tasklist: All Tasks of this user
+    create: Join Time
+    new: Create New User
+    task_count: Task Count 
+    back-admin: Back to Admin Page
