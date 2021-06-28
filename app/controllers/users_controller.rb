@@ -16,6 +16,11 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
     @user = User.find(params[:id])
+    if current_user.admin?
+      @q = User.find(params[:id]).tasks.ransack(params[:q])
+      @tasks = @q.result
+      @tasks = @tasks.order('id ASC').page(params[:page]).per(9)
+    end
   end
 
 

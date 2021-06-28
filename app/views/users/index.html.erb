@@ -1,22 +1,22 @@
 <h1 class="mb-3 text-center title">All Users</h1>
 
-<%= link_to 'Create User', new_user_path, class:"btn btn-outline-primary my-4" %>
+<%= link_to t('user.new'), new_user_path, class:"btn btn-outline-primary mb-4" %>
 
-<div class='shadow p-4 mb-5 panel'>
+<div class='shadow p-2 mb-5 panel'>
   <table class="table table-hover">
     <thead>
       <tr>
-        <td>User Name</td>
+        <td><%= t('user.name') %></td>
         <td class="text-center">
-          User Email
+          Email
         </td>
-        <td class='text-center'>Task Count</td>
+        <td class='text-center'><%= t('user.task_count') %></td>
         <td></td>
       </tr>
     </thead>
   <% @users.each do |user| %>
     <tr class=''>
-      <td><%= link_to user.name, user%></td>
+      <td><%= link_to user.name, user%><% if user.admin? %><span class="badge status-2 ms-3"><%= t('user.admin') %></span><% end %></td>
       <td><%= user.email %></td>
       <td class='text-center'><%= user.tasks.count %></td>
       <td class='text-center'>

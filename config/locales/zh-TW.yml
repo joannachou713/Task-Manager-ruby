@@ -32,3 +32,24 @@
   views:
     pagination:
       truncate: "&hellip;"
+  user:
+    set-password: 變更密碼
+    basic-settings: 基本設置
+    basicinfo: 基本資料
+    name: 姓名
+    tel: 電話
+    password: 密碼
+    password-confirmation: 確認密碼
+    admin: 管理員
+    admin-text:
+      is: 此用戶為管理員
+      settings: 管理員設置
+      out: 退出管理員
+      remove: 將此用戶從管理員移除
+      add: 將此用戶設定為管理員
+    save-changes: 確認變更
+    tasklist: 此用戶的所有任務
+    create: 加入時間
+    new: 新增使用者
+    task_count: 任務數量 
+    back-admin: 回到管理員頁面

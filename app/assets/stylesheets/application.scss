@@ -20,8 +20,13 @@
 a {
   text-decoration: none !important;
 }
+h1, h2, h3, h4, h5, h6 {
+ font-weight: normal;
+ color: #5f76e8;
+}
 
 body {
+  // font-size: 15px;
   font-family: "Quicksand", sans-serif !important;
   background: rgb(127, 127, 213);
   background: linear-gradient(

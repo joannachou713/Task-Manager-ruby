@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
   before_action :logged_in_user, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :correct_task_user, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     if current_user
       @q = Task.where(user_id: current_user.id).ransack(params[:q])
-      @tasks = @q.result.page(params[:page])
-
+      @tasks = @q.result
       @tasks = @tasks.order('id ASC').page(params[:page]).per(9)
     else
       render :index
@@ -57,7 +57,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy if @task
     redirect_to tasks_path, notice: I18n.t('successful-delete')
-  
   end
   
 
@@ -73,5 +72,13 @@ class TasksController < ApplicationController
   def handle_record_not_found
     flash[:notice] = "Record Not Found"
     redirect_to :action => 'index'
+  end
+
+
+  def correct_task_user
+    task = Task.find(params[:id])
+    user = task.user_id
+    flash[:danger] = "權限不足"
+    redirect_to(user_path(current_user)) unless user == current_user 
   end
 end
