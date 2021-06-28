@@ -33,7 +33,7 @@ RSpec.feature "Users", type: :feature do
     it "valid signup information" do
       click_button 'commit'
       expect(User.count).to eq(before_count+1)
-      expect(page).to have_content('Welcome to Task Manager!')
+      expect(page).to have_content(I18n.t('flash.task.welcome'))
     end
   end
 
