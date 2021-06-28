@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :logged_in_user, only: [:show, :new, :create, :edit, :update, :destroy]
-  before_action :correct_task_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_task_user, only: [:edit, :update, :destroy]
 
   def index
     if current_user
@@ -77,8 +77,10 @@ class TasksController < ApplicationController
 
   def correct_task_user
     task = Task.find(params[:id])
-    user = task.user_id
-    flash[:danger] = "權限不足"
-    redirect_to(user_path(current_user)) unless user == current_user 
+    user = task.user
+    if user != current_user
+      flash[:danger] = "權限不足"
+      redirect_to(root_path)
+    end  
   end
 end
