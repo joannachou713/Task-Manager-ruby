@@ -1,61 +1,25 @@
-<h1 class="mb-3">Task Manager</h1>
-<%= link_to t('show.new'), new_task_path, class:"btn btn-primary mb-3"%>
-<%= search_form_for @q do |f| %>
-  <%= f.label :title_cont %>
-  <%= f.search_field :title_cont %>
+<%= link_to root_path do %><h1 class="mb-3 text-center title">Task Manager</h1><% end %>
+<% if logged_in? %>
+<div class="d-flex align-items-center justify-content-between my-4">
+    <%= link_to t('show.new'), new_task_path, class:"btn btn-outline-primary" %>
+    <div>
+      <%= search_form_for @q, class: 'd-flex align-items-center justify-content-center' do |f| %>
+        <%= f.label :title_cont, t('filter.title'), class: "me-2 filter-title fs-6 " %>
+        <%= f.search_field :title_cont, class: 'form-control w-25', placeholder: 'Title Contains' %>
+        
+        <%= f.label :status_eq, t('filter.status'), class: "ms-3 me-2 filter-title fs-6 " %>
+        <%= f.select :status_eq, options_for_select([['None', '' ], [t('show.status')[0], 0], [t('show.status')[1], 1], [t('show.status')[2], 2]]), {}, {class: 'form-control w-25'} %>
+
+        <%= f.submit "Search", name: 'search', class: 'btn btn-outline-primary ms-3' %>
+      <% end %>
+    </div>
+  </div>
   
-  <%= f.label :status_eq, t('show.status-text'), class: "form-label" %>
-  <%= f.select :status_eq, options_for_select([[t('show.status')[0], 0], [t('show.status')[1], 1], [t('show.status')[2], 2]]) %>
+  <div class='shadow p-2 mb-5 panel'>
+  <%= render "tasklist", tasks: @tasks %>
+  </div>
 
-  <%= f.submit "Search", name: 'search'%>
+  <%= paginate @tasks, theme: 'twitter-bootstrap-4'%>
+<% else %>
+  <%= render "prevent_login" %>  
 <% end %>
-
-<table class="table">
-  <thead>
-    <tr>
-      <td><%= t('show.title') %></td>
-      <td>
-        <%= sort_link(@q, :created_at, t('show.created'), default_order: :ASC) %>
-      </td>
-      <td>
-        <%= sort_link(@q, :start, t('show.start'), default_order: :ASC) %>
-      </td>
-      <td>
-        <%= sort_link(@q, :endtime, t('show.end'), default_order: :DESC) %>
-      </td>
-      <td>
-        <%= sort_link(@q, :priority, t('show.priority-text'), default_order: :DESC) %>
-      </td>
-      <td>
-        <%= sort_link(@q, :status, t('show.status-text'), default_order: :ASC) %>
-      </td>
-      <td><%= t('show.label') %></td>
-      <td></td>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-    <tr>
-      <td><%= task.title %></td>
-      <td style="font-family: 'Roboto Mono', monospace;"><%= task.created_at.strftime("%y %m %d - %H:%M") %></td>
-      <td style="font-family: 'Roboto Mono', monospace;"><%= task.start.strftime("%y %m %d - %H:%M") %></td>
-      <td style="font-family: 'Roboto Mono', monospace;"><%= task.endtime.strftime("%y %m %d - %H:%M") %></td>
-      <td>
-        <%= t('show.priority')[task.priority] %>
-      </td>
-      <td>
-        <%= t('show.status')[task.status] %>
-      </td>
-      <td>label</td>
-      <td>
-        <%= link_to edit_task_path(task) do %>
-          <i class="fas fa-pen "></i>
-        <% end %>
-        <%= link_to task_path(task), method: "delete", data: { confirm: "確認刪除" }, id: "delete-#{task.id}" do %>
-          <i class="fas fa-trash-alt  ms-1"></i>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>

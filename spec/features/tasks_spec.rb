@@ -1,8 +1,15 @@
 require 'rails_helper'
 
+RSpec.configure do |c|
+  c.include Helpers
+end
+
 RSpec.feature "Tasks", type: :feature do
   context "create new tasks" do
-    before(:each) do
+    let!(:login) do
+      sign_in
+
+      # visit new tasks
       visit new_task_path
       within('form') do
         choose 'task_priority_2'
@@ -14,9 +21,11 @@ RSpec.feature "Tasks", type: :feature do
     scenario "should be successful" do
       within('form') do
         fill_in 'task_title', with: 'new task test'
+        fill_in 'task_start', with: DateTime.now
+        fill_in 'task_endtime', with: DateTime.now+1.week
       end
       click_button 'commit'
-      expect(page).to have_content(I18n.t('successful-create'))
+      expect(page).to have_content(I18n.t('flash.task.successful-create'))
     end
     
     
@@ -28,23 +37,26 @@ RSpec.feature "Tasks", type: :feature do
 
     scenario "failed (end<create)" do
       within('form') do
-        select('2016', :from => 'task_endtime_1i')
+        fill_in 'task_start', with: DateTime.now
+        fill_in 'task_endtime', with: DateTime.now-1.week
       end
       click_button 'commit'
-      expect(page).to have_content(I18n.t('error.end_start'))
+      expect(page).to have_content(I18n.t('flash.task.end_start'))
     end
   end
 
 
   context "update tasks" do
     scenario "should be successful" do
-      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 0)
+      sign_in
+      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now,
+        endtime: (DateTime.now + 1.week), priority: 0, status: 0, user: User.first)
       visit edit_task_path(task)
       within('form') do
         fill_in 'task_title', with: '測試修改'
       end
       click_button 'commit'
-      expect(page).to have_content(I18n.t('successful-update'))
+      expect(page).to have_content(I18n.t('flash.task.successful-update'))
       expect(page).to have_content('測試修改')
     end
   end
@@ -52,18 +64,23 @@ RSpec.feature "Tasks", type: :feature do
   
   context "destory tasks" do
     scenario "should be successful" do
-      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 0)
+      sign_in
+      task = Task.create(id: 1, title: 'title', content: 'string', start: DateTime.now,
+        endtime: (DateTime.now + 1.week), priority: 0, status: 0, user: User.first)
       visit tasks_path
       expect{ click_link 'delete-1' }.to change(Task, :count).by(-1)
-      expect(page).to have_content(I18n.t('successful-delete'))
+      expect(page).to have_content(I18n.t('flash.task.successful-delete'))
     end
   end
 
 
   context "sort tasks" do
-    before(:each) do
-      task = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour, start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 1)
-      task1 = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now, start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 1, status: 0)
+    let!(:login) do
+      sign_in
+      task = Task.create(id: 0, title: 'title0', content: 'string', created_at: DateTime.now+1.hour,
+        start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 0, status: 1, user: User.first)
+      task1 = Task.create(id: 1, title: 'title1', content: 'string', created_at: DateTime.now,
+        start: DateTime.now, endtime: (DateTime.now + 1.week), priority: 1, status: 0, user: User.first)
     end
 
     scenario "search by title" do

@@ -1,45 +1,47 @@
-<%= form_for(task) do |f| %>
-    <%= f.label :title, t('show.title'), class: "form-label" %>
-    <%= f.text_field :title, class: "form-control" %> <br />
-  
-    <%= f.label :content, t('show.content'), class: "form-label" %>
-    <%= f.text_area :content, class: "form-control" %> <br />
-  
-    <%= f.label :start, t('show.start'), class: "form-label" %>
-    <%= f.datetime_select :start %> <br />
-  
-    <%= f.label :endtime, t('show.end'), class: "form-label" %>
-    <%= f.datetime_select :endtime %> <br />
+<div class="shadow panel p-5 w-75">
+    <%= bootstrap_form_for(task) do |f| %>
+        <%= f.text_field :title, class: "form-control mb-4", label: t('show.title')%> 
+    
+        <%= f.text_area :content, class: "form-control mb-4", label: t('show.content') %> 
+    
+        <div class="d-flex mb-4">
+            <div class="col-6">
+                <%= f.text_field :start, label: t('show.start'), as: :string, class: 'datepicker' %>
+            </div>
+            
+            <div class="col-6">
+                <%= f.text_field :endtime, label: t('show.end'), as: :string, class: 'datepicker' %>
+            </div>
+        </div>
 
-    <%= f.label :priority, t('show.priority-text'), class: "form-label" %>
-    <div class="form-check">
-        <%= f.radio_button :priority, 2, class: "form-check-label" %>
-        <%= f.label :priority, t('show.priority')[2], :value => "2", class: "form-check-label" %>
-    </div>
-    <div class="form-check">
-        <%= f.radio_button :priority, 1, class: "form-check-label" %>
-        <%= f.label :priority, t('show.priority')[1], :value => "1", class: "form-check-label" %>
-    </div>
-    <div class="form-check">
-        <%= f.radio_button :priority, 0, class: "form-check-label" %>
-        <%= f.label :priority, t('show.priority')[0], :value => "0", class: "form-check-label" %><br />
-    </div>
+        <div class="row mb-4">
+            <div class="d-flex col-6">
+                <%= f.label :priority, t('show.priority-text'), class: "form-label" %>
+                <div class="form-check">
+                <%= f.radio_button :priority, 2, class: "form-check-label", label: t('show.priority')[2], label_class: 'badge priority-2' %>
+                </div>
+                <div class="form-check">
+                <%= f.radio_button :priority, 1, class: "form-check-label", label: t('show.priority')[1], label_class: 'badge priority-1' %>
+                </div>
+                <div class="form-check">
+                <%= f.radio_button :priority, 0, class: "form-check-label", label: t('show.priority')[0], label_class: 'badge priority-0' %>
+                </div>
+            </div>
+
+            <div class="d-flex col-6">
+                <%= f.label :status, t('show.status-text'), class: "form-label" %>
+                <div class="form-check">
+                <%= f.radio_button :status, 0, class: "form-check-label", label: t('show.status')[0], label_class: 'badge status-0' %>
+                </div>
+                <div class="form-check">
+                <%= f.radio_button :status, 1, class: "form-check-label", label: t('show.status')[1], label_class: 'badge status-1' %>
+                </div>
+                <div class="form-check">
+                <%= f.radio_button :status, 2, class: "form-check-label", label: t('show.status')[2], label_class: 'badge status-2' %>
+                </div>
+            </div>
+        </div>
         
-
-    <%= f.label :status, t('show.status-text'), class: "form-label" %>
-    <div class="form-check">
-        <%= f.radio_button :status, 0, class: "form-check-label" %>
-        <%= f.label :status, t('show.status')[0], :value => "0", class: "form-check-label" %>
-    </div>
-    <div class="form-check">
-        <%= f.radio_button :status, 1, class: "form-check-label" %>
-        <%= f.label :status, t('show.status')[1], :value => "1", class: "form-check-label" %>
-    </div>
-    <div class="form-check">
-        <%= f.radio_button :status, 2, class: "form-check-label" %>    
-        <%= f.label :status, t('show.status')[2], :value => "2", class: "form-check-label" %><br />
-    </div>
-
-    <%= f.submit %>
-<% end %>
-  
+        <div class="d-flex justify-content-center"><%= f.submit class: 'btn btn-outline-secondary' %></div>
+    <% end %>
+</div>

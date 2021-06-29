@@ -1,3 +1,18 @@
 // Place all the styles related to the task controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.time {
+  font-family: "Roboto Mono", monospace;
+}
+
+input#q_title_cont,
+select#q_status_eq {
+  background-color: transparent;
+  color: #e0e6ff;
+}
+
+#task_start,
+#task_endtime {
+  width: 80% !important;
+}

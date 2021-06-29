@@ -1,0 +1,50 @@
+<% content_for(:title, "Update Profile") %>
+<div class="d-flex flex-column justify-content-center align-items-center">
+<h1 class="mb-3 title text-center">
+  <% if current_user.id == @user.id %>
+    Update Your Profile
+  <% else %>
+    Update User Profile
+  <% end %>
+</h1>
+
+<div class="shadow panel p-4 w-25">
+
+<%= bootstrap_form_with(model: @user, local: true) do |f| %>
+  <div><%= t('user.basic-settings') %></div>
+  <div class='mb-3'><%= f.text_field :name, label: t('user.name') %></div>
+  
+  <div class='mb-3'><%= f.email_field :email, label: '' %></div>
+  
+  <div class='mb-3'><%= f.text_field :tel, label: t('user.tel') %></div>
+  
+  <% if current_user.id == @user.id %>
+    <div class='mt-4'><%= t('user.set-password') %></div>
+    <div class='mb-3'><%= f.password_field :password, label: t('user.password') %></div>
+    <div><%= f.password_field :password_confirmation, label: t('user.password-confirmation') %></div>
+  <% end %>
+  <% if current_user.admin? %>
+    <div class="mt-4"><%= t('user.admin-text.settings') %></div>
+    <% if @user.admin? %>
+      <% if !current_user?(@user) %>
+        <div class="mt-2"><%= t('user.admin-text.is') %></div>
+        <div><%= f.radio_button :admin, 0, label: t('user.admin-text.remove') %></div>
+      <% else %>
+        <div class="mt-2"><%= f.radio_button :admin, 0, label: t('user.admin-text.out') %></div>
+      <% end %>
+    <% else %>
+      <div class="mt-2"><%= f.radio_button :admin, 1, label: t('user.admin-text.add') %></div>
+    <% end %>
+
+
+  <% end %>
+
+  <div class="d-flex justify-content-center mt-4"><%= f.submit t('user.save-changes'), class: 'btn btn-outline-secondary' %></div>
+
+<% end %>
+
+</div>
+<% if current_user.admin?%>
+  <%= link_to t('user.back-admin'), admin_path, class:"btn btn-primary mt-5"%>
+<% end %>
+</div>

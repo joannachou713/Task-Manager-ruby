@@ -22,11 +22,13 @@ gem 'bootstrap', '~> 5.0.1'
 gem 'jquery-rails'
 
 gem 'rexml'
-
 gem 'rails-i18n'
-
 gem 'ransack'
-
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
+gem "bootstrap_form", "~> 4.0"
+gem 'bcrypt'
+gem 'faker'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -61,6 +63,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'factory_bot_rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

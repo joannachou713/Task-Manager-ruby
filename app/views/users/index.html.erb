@@ -1,0 +1,38 @@
+<h1 class="mb-3 text-center title">All Users</h1>
+
+<%= link_to t('user.new'), new_user_path, class:"btn btn-outline-primary mb-4" %>
+
+<div class='shadow p-2 mb-5 panel'>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td><%= t('user.name') %></td>
+        <td class="text-center">
+          Email
+        </td>
+        <td class='text-center'><%= t('user.task_count') %></td>
+        <td></td>
+      </tr>
+    </thead>
+  <% @users.each do |user| %>
+    <tr class=''>
+      <td><%= link_to user.name, user%><% if user.admin? %><span class="badge status-2 ms-3"><%= t('user.admin') %></span><% end %></td>
+      <td><%= user.email %></td>
+      <td class='text-center'><%= user.tasks.count %></td>
+      <td class='text-center'>
+          <%= link_to edit_user_path(user) do %>
+            <i class="fas fa-pen "></i>
+          <% end %>
+         <% if !current_user?(user) %> 
+          <%= link_to user, method: :delete ,data: {confirm: "You sure?"} do%>
+            <i class="fas fa-trash-alt ms-3"></i>
+          <% end %>
+         <% else %> 
+             <i class="fas fa-trash-alt ms-3 text-white-50"></i>
+         <% end %> 
+      </td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+<%= paginate @users, theme: 'twitter-bootstrap-4'%>

@@ -1,0 +1,53 @@
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td><%= t('show.title') %></td>
+        <td class="text-center">
+          <%= sort_link(@q, :created_at, t('show.created'), default_order: :ASC) %>
+        </td>
+        <td class="text-center">
+          <%= sort_link(@q, :start, t('show.start'), default_order: :ASC) %>
+        </td>
+        <td class="text-center">
+          <%= sort_link(@q, :endtime, t('show.end'), default_order: :DESC) %>
+        </td>
+        <td class="text-center">
+          <%= sort_link(@q, :priority, t('show.priority-text'), default_order: :DESC) %>
+        </td>
+        <td class="text-center">
+          <%= sort_link(@q, :status, t('show.status-text'), default_order: :ASC) %>
+        </td>
+        <td><%= t('show.label') %></td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @tasks.length < 1 %>
+        <tr><td class="text-center py-3 fs-5" colspan="7">No Any Tasks Yet</td></tr>
+      <%else%>
+        <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task_path(task) do%><%= task.title %></td><% end %>
+          <td class="text-center time"><%= task.created_at.strftime("%m %d, %Y") %></td>
+          <td class="text-center time"><%= task.start.strftime("%m %d, %Y") %></td>
+          <td class="text-center time"><%= task.endtime.strftime("%m %d, %Y") %></td>
+          <td class="text-center">
+            <span class="badge priority-<%= task.priority %>"><%= t('show.priority')[task.priority] %></span>
+          </td>
+          <td class="text-center">
+            <span class="badge status-<%= task.status %>"><%= t('show.status')[task.status] %></span>
+          </td>
+          <td>label</td>
+          <td>
+            <%= link_to edit_task_path(task) do %>
+              <i class="fas fa-pen "></i>
+            <% end %>
+            <%= link_to task_path(task), method: "delete", data: { confirm: "確認刪除" }, id: "delete-#{task.id}" do %>
+              <i class="fas fa-trash-alt  ms-1"></i>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>

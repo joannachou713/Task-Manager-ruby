@@ -1,0 +1,35 @@
+<% content_for(:title, "Sign up") %>
+<div class="d-flex flex-column justify-content-center align-items-center">
+<h1 class="mb-3 title text-center">
+<% if !current_user %>
+  Sign up
+  <% submit_text = 'Create My Account' %>
+<% else %>
+  Create New User
+  <% submit_text = 'Create' %>
+<% end %>
+</h1>
+
+<div class="shadow panel p-4 w-25">
+
+<%= bootstrap_form_with(model: @user, local: true) do |f| %>
+  
+  <div class='mb-3'><%= f.text_field :name, label: '姓名' %></div>
+  
+  <div class='mb-3'><%= f.email_field :email, label: '' %></div>
+  
+  <div class='mb-3'><%= f.text_field :tel, label: '' %></div>
+  
+  <div class='mb-3'><%= f.password_field :password, label: '' %></div>
+  
+  <div class='mb-4'><%= f.password_field :password_confirmation, label: '' %></div>
+
+  <div class="d-flex justify-content-center"><%= f.submit "#{submit_text}", class: 'btn btn-outline-secondary' %></div>
+
+<% end %>
+
+</div>
+<% if current_user %>
+  <%= link_to t('user.back-admin'), admin_path, class:"btn btn-primary mt-5"%>
+<% end %>
+</div>
