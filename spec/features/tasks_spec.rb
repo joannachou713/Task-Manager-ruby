@@ -6,14 +6,17 @@ end
 
 RSpec.feature "Tasks", type: :feature do
   context "create new tasks" do
+    let!(:label) { build(:label) }
+
     let!(:login) do
+      label.save
       sign_in
 
-      # visit new tasks
       visit new_task_path
       within('form') do
         choose 'task_priority_2'
         choose 'task_status_0'
+        check 'label test'
       end
     end
 

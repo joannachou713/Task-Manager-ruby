@@ -45,11 +45,13 @@
         <div class="mb-4">
             <div><%= t('show.chooselabel')%></div>
             <div class="d-flex flex-wrap">
-                <%= @labels.each do |label|%>
+                <%= Label.all.each do |label| %>
                     <div class="me-5">
-                        <%= f.check_box :labels, value: label, label: label.name, name: "task_labels[#{label.id}]", id: "task_labels#{label.id}" %>
+                        <%= f.check_box :labels, value: label, label: label.name, name: "task_labels[#{label.id}]", id: "task_labels_#{label.id}" %>
                     </div>
                 <% end %>
+
+
             </div>
         </div>
         
