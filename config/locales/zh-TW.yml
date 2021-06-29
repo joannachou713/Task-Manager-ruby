@@ -19,8 +19,11 @@
       - 已完成
     back: 回到任務列表
     label: 標籤
+    chooselabel: 選擇標籤
+    task_count: 任務數量 
   filter:
-    title: 過濾標題
+    title: 搜尋標題
+    label: 搜尋標籤
     status: 過濾狀態
   edit: 編輯
   delete: 刪除
@@ -48,7 +51,6 @@
     tasklist: 此用戶的所有任務
     create: 加入時間
     new: 新增使用者
-    task_count: 任務數量 
     back-admin: 回到管理員頁面
   flash:
     user:
@@ -63,4 +65,12 @@
       successful-update: 任務成功更新
       end_start: 結束時間必須晚於開始時間
       welcome: 歡迎來到 Task Manager！
+    label:
+      successful-create: 標籤成功新增
+      successful-delete: 標籤成功刪除
+      successful-update: 標籤成功更新
     notfound: 找不到該紀錄
+  label: 
+    new: 新增標籤
+    name: 標籤名稱
+    choosecolor: 選擇顏色

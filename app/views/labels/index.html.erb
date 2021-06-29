@@ -1,0 +1,43 @@
+<h1 class="mb-3 text-center title">All Labels</h1>
+
+<%= link_to t('label.new'), new_label_path, class:"btn btn-outline-primary mb-4" %>
+
+<div class='shadow p-2 mb-5 panel'>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td class="text-center"><%= t('label.name') %></td>
+        <td class="text-center"><%= t('show.created') %>
+        </td>
+        <td class="text-center"><%= t('show.task_count') %>
+        </td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @labels.length < 1 %>
+        <tr><td class="text-center py-3 fs-5" colspan="7">No Any labels Yet</td></tr>
+      <%else%>
+        <% @labels.each do |label| %>
+        <tr>
+          <td class="text-center"><%= link_to label_path(label) do%><%= label.name %></td><% end %>
+          <td class="text-center time"><%= label.created_at.strftime("%m %d, %Y") %></td>
+          <td class='text-center'>
+            <%= label.tasks.count %>
+          </td>
+          <td class="text-center">
+            <%= link_to edit_label_path(label) do %>
+              <i class="fas fa-pen "></i>
+            <% end %>
+            <%= link_to label_path(label), method: "delete", data: { confirm: "確認刪除" }, id: "delete-#{label.id}" do %>
+              <i class="fas fa-trash-alt  ms-1"></i>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+<%= paginate @labels, theme: 'twitter-bootstrap-4'%>

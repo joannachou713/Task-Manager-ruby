@@ -18,7 +18,7 @@
 @import "rails_bootstrap_forms";
 
 .bg-light {
-  background-color: #e7f3ffa1 !important;
+  background-color: #e2e2ff !important
 }
 
 a {
@@ -30,7 +30,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-  // font-size: 15px;
   font-family: "Quicksand", sans-serif !important;
   background: rgb(127, 127, 213);
   background: linear-gradient(
@@ -115,7 +114,8 @@ a,
 
 .title,
 .filter-title,
-input#q_title_cont::placeholder {
+input#q_title_cont::placeholder,
+input#q_labels_name_cont::placeholder {
   color: #e0e6ff !important;
 }
 
@@ -154,4 +154,30 @@ body > div.container.pt-5 > nav {
   color: #f5f8ff !important;
   background-color: rgba(134, 168, 231, 1) !important;
   border-color: rgba(134, 168, 231, 1) !important;
+}
+
+input#q_title_cont,
+select#q_status_eq,
+input#q_labels_name_cont {
+  background-color: transparent;
+  color: #e0e6ff;
+}
+
+.label_colors1{
+  background-color: #FF8888;
+}
+.label_colors2{
+  background-color: #FFBB66;
+}
+.label_colors3{
+  background-color: #00DD77;
+}
+.label_colors4{
+  background-color: #5599FF;
+}
+.label_colors5{
+  background-color: #0000FF;
+}
+.label_colors6{
+  background-color: #9900FF;
 }

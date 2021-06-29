@@ -17,7 +17,10 @@
         <td class="text-center">
           <%= sort_link(@q, :status, t('show.status-text'), default_order: :ASC) %>
         </td>
-        <td><%= t('show.label') %></td>
+        <td>
+          <%= link_to t('show.label'), labels_path %>
+          <%= link_to new_label_path do %><i class="fas fa-plus-circle"></i><%end%>
+        </td>
         <td></td>
       </tr>
     </thead>
@@ -37,7 +40,13 @@
           <td class="text-center">
             <span class="badge status-<%= task.status %>"><%= t('show.status')[task.status] %></span>
           </td>
-          <td>label</td>
+          <td>
+          <% task.labels.each do |label| %>
+            <span class="badge me-2 label_colors<%= label.color %>">
+              <%= label.name %>
+            </span>
+          <% end %>
+          </td>
           <td>
             <%= link_to edit_task_path(task) do %>
               <i class="fas fa-pen "></i>

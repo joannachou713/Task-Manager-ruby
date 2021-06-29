@@ -5,8 +5,9 @@ class TasksController < ApplicationController
   def index
     if current_user
       @q = Task.where(user_id: current_user.id).ransack(params[:q])
-      @tasks = @q.result
+      @tasks = @q.result.includes(:labels, :label_relations)
       @tasks = @tasks.order('id ASC').page(params[:page]).per(9)
+
     else
       render :index
     end
@@ -15,6 +16,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @labels = Label.all
   end
 
 
@@ -26,9 +28,13 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id if current_user
+    params[:task_labels].each do |key, value|
+      @task.labels << Label.find_by(id: key) if value == '1'
+    end
 
     if @task.save
-      redirect_to tasks_path, notice: t('flash.task.successful-create')
+      flash[:success] = t('flash.task.successful-create')
+      redirect_to tasks_path
     else
       flash[:danger] = @task.errors.full_messages.to_sentence
       render :new
@@ -38,6 +44,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    @labels = Label.all
   end
 
 
@@ -45,9 +52,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      redirect_to tasks_path, notice: t('flash.task.successful-update')
+      flash[:success] = t('flash.task.successful-update')
+      redirect_to tasks_path
     else
-      flash[:notice] = @task.errors.full_messages.to_sentence
+      flash[:danger] = @task.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -56,7 +64,8 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy if @task
-    redirect_to tasks_path, notice: t('flash.task.successful-delete')
+    flash[:success] = t('flash.task.successful-delete')
+    redirect_to tasks_path
   end
   
 
@@ -65,7 +74,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :start, :endtime, :priority, :status)
+    params.require(:task).permit(:title, :content, :start, :endtime, :priority, :status, :labels)
   end
   
   
