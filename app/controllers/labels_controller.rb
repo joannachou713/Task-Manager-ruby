@@ -1,8 +1,9 @@
 class LabelsController < ApplicationController
   before_action :logged_in_user
+  before_action :find_label, only: [:edit, :update, :destroy]
 
   def index
-    @labels = Label.includes(:tasks, :label_relations).all.page(params[:page]).per(9)
+    @labels = Label.includes(:tasks, :label_relations).page(params[:page]).per(9)
   end
 
   def show
@@ -27,12 +28,9 @@ class LabelsController < ApplicationController
   end
 
   def edit
-    @label = Label.find(params[:id])
   end
 
   def update
-    @label = Label.find(params[:id])
-
     if @label.update(label_params)
       flash[:success] = t('flash.label.successful-update')
       redirect_to labels_path
@@ -43,7 +41,6 @@ class LabelsController < ApplicationController
   end
 
   def destroy
-    @label = Label.find(params[:id])
     @label.destroy if @label
     flash[:success] = t('flash.task.successful-delete')
     redirect_to labels_path
@@ -52,5 +49,9 @@ class LabelsController < ApplicationController
   private
   def label_params
     params.require(:label).permit(:name, :color)
+  end
+
+  def find_label
+    @label = Label.find(params[:id])
   end
 end
