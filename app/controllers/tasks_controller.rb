@@ -4,9 +4,9 @@ class TasksController < ApplicationController
 
   def index
     if current_user
-      @q = Task.where(user_id: current_user.id).ransack(params[:q])
+      @q = current_user.tasks.ransack(params[:q])
       @tasks = @q.result.includes(:labels, :label_relations)
-      @tasks = @tasks.order('id ASC').page(params[:page]).per(9)
+      @tasks = @tasks.order(id: :ASC).page(params[:page]).per(9)
 
     else
       render :index
