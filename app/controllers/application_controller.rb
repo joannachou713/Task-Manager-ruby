@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :log_in, :remember, :current_user, :logged_in?, :forget,
-   :log_out, :logged_in_user, :correct_user, :current_user?
+  helper_method :current_user, :logged_in?, :current_user?
 
   # logs in the given user
   def log_in(user)
