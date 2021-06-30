@@ -1,13 +1,14 @@
 class TasksController < ApplicationController
   before_action :logged_in_user, only: [:show, :new, :create, :edit, :update, :destroy]
   before_action :correct_task_user, only: [:edit, :update, :destroy]
+  before_action :find_record, only: [:show, :edit, :update, :destroy]
+  before_action :handle_checkbox, only: [:create, :update]
 
   def index
     if current_user
       @q = current_user.tasks.ransack(params[:q])
       @tasks = @q.result.includes(:labels, :label_relations)
       @tasks = @tasks.order(id: :ASC).page(params[:page]).per(9)
-
     else
       render :index
     end
@@ -16,21 +17,17 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @labels = Label.all
   end
 
 
   def show
-    @task = Task.find(params[:id])
   end
 
 
   def create
     @task = Task.new(task_params)
+    @task.labels = params[:task][:labels]
     @task.user_id = current_user.id if current_user
-    params[:task_labels].each do |key, value|
-      @task.labels << Label.find_by(id: key) if value == '1'
-    end
 
     if @task.save
       flash[:success] = t('flash.task.successful-create')
@@ -43,13 +40,11 @@ class TasksController < ApplicationController
 
 
   def edit
-    @task = Task.find(params[:id])
-    @labels = Label.all
   end
 
 
   def update
-    @task = Task.find(params[:id])
+    @task.labels = params[:task][:labels]
 
     if @task.update(task_params)
       flash[:success] = t('flash.task.successful-update')
@@ -62,7 +57,6 @@ class TasksController < ApplicationController
 
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy if @task
     flash[:success] = t('flash.task.successful-delete')
     redirect_to tasks_path
@@ -74,7 +68,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :start, :endtime, :priority, :status, :labels)
+    params.require(:task).permit(:title, :content, :start, :endtime, :priority, :status, labels: [])
   end
   
   
@@ -91,5 +85,19 @@ class TasksController < ApplicationController
       flash[:danger] = t('flash.user.nopermit')
       redirect_to(root_path)
     end  
+  end
+
+
+  def handle_checkbox
+    # handle checkbox hidden element and convert selected value to Label object
+    if (params[:task][:labels].include? "")
+      params[:task][:labels].delete("")
+      params[:task][:labels] = params[:task][:labels].map{ |key| Label.find_by(id: key) }
+    end
+  end
+
+
+  def find_record
+    @task = Task.includes(:labels, :label_relations).find(params[:id])
   end
 end
