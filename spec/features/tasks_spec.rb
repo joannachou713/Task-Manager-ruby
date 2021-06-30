@@ -16,7 +16,7 @@ RSpec.feature "Tasks", type: :feature do
       within('form') do
         choose 'task_priority_2'
         choose 'task_status_0'
-        check 'label test'
+        select 'label test', :from => 'task_label_items'
       end
     end
 

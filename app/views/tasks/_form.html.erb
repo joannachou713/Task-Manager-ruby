@@ -1,16 +1,20 @@
 <div class="shadow panel p-5 w-75">
-    <%= bootstrap_form_for(task) do |f| %>
-        <%= f.text_field :title, class: "form-control mb-4", label: t('show.title')%> 
+    <%= simple_form_for(task) do |f| %>
+        <%= f.label t('show.title')%>
+        <%= f.text_field :title, class: "form-control mb-4" %> 
     
-        <%= f.text_area :content, class: "form-control mb-4", label: t('show.content') %> 
+        <%= f.label t('show.content')%>
+        <%= f.text_area :content, class: "form-control mb-4" %> 
     
         <div class="d-flex mb-4">
             <div class="col-6">
-                <%= f.text_field :start, label: t('show.start'), as: :string, class: 'datepicker' %>
+            <%= f.label t('show.start')%>
+            <%= f.text_field :start, as: :string, class: 'datepicker form-control' %>
             </div>
             
             <div class="col-6">
-                <%= f.text_field :endtime, label: t('show.end'), as: :string, class: 'datepicker' %>
+            <%= f.label t('show.end')%>
+            <%= f.text_field :endtime, as: :string, class: 'datepicker form-control' %>
             </div>
         </div>
 
@@ -18,38 +22,45 @@
             <div class="d-flex col-6">
                 <%= f.label :priority, t('show.priority-text'), class: "form-label" %>
                 <div class="form-check">
-                <%= f.radio_button :priority, 2, class: "form-check-label", label: t('show.priority')[2], label_class: 'badge priority-2' %>
+                <%= f.radio_button :priority, 2, class: "form-check-label" %>
+                <%= f.label t('show.priority')[2], class: 'badge priority-2'%>
                 </div>
                 <div class="form-check">
-                <%= f.radio_button :priority, 1, class: "form-check-label", label: t('show.priority')[1], label_class: 'badge priority-1' %>
+                <%= f.radio_button :priority, 1, class: "form-check-label" %>
+                <%= f.label t('show.priority')[1], class: 'badge priority-1'%>
                 </div>
                 <div class="form-check">
-                <%= f.radio_button :priority, 0, class: "form-check-label", label: t('show.priority')[0], label_class: 'badge priority-0' %>
+                <%= f.radio_button :priority, 0, class: "form-check-label" %>
+                <%= f.label t('show.priority')[0], class: 'badge priority-0'%>
                 </div>
             </div>
 
             <div class="d-flex col-6">
                 <%= f.label :status, t('show.status-text'), class: "form-label" %>
                 <div class="form-check">
-                <%= f.radio_button :status, 0, class: "form-check-label", label: t('show.status')[0], label_class: 'badge status-0' %>
+                <%= f.radio_button :status, 0, class: "form-check-label" %>
+                <%= f.label t('show.status')[0], class: 'badge status-0' %>
                 </div>
                 <div class="form-check">
-                <%= f.radio_button :status, 1, class: "form-check-label", label: t('show.status')[1], label_class: 'badge status-1' %>
+                <%= f.radio_button :status, 1, class: "form-check-label" %>
+                <%= f.label t('show.status')[1], class: 'badge status-1' %>
                 </div>
                 <div class="form-check">
-                <%= f.radio_button :status, 2, class: "form-check-label", label: t('show.status')[2], label_class: 'badge status-2' %>
+                <%= f.radio_button :status, 2, class: "form-check-label" %>
+                <%= f.label t('show.status')[2], class: 'badge status-2' %>
                 </div>
             </div>
         </div>
 
-        <div class="mb-4">
-            <div><%= t('show.chooselabel')%></div>
-            <div class="d-flex flex-wrap">
-                <%= f.collection_check_boxes :labels, Label.all, :id, :name %>
+        <div class="mb-4" id='label-select'>
+            <%= f.input :label_items,label: t('show.chooselabel'), as: :select, collection: Label.order(:name),
+             label_method: :name,value_method: :name, input_html: {multiple: true} %>
 
-            </div>
         </div>
         
         <div class="d-flex justify-content-center"><%= f.submit class: 'btn btn-outline-secondary' %></div>
     <% end %>
 </div>
+<script>
+
+</script>

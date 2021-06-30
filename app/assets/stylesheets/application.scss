@@ -163,6 +163,9 @@ input#q_labels_name_cont {
   color: #e0e6ff;
 }
 
+.label_colors0{
+  background-color: #da92cf;
+}
 .label_colors1{
   background-color: #FF8888;
 }
@@ -180,4 +183,8 @@ input#q_labels_name_cont {
 }
 .label_colors6{
   background-color: #9900FF;
+}
+#label-select > div > span > span.selection > span{
+  width: 500px;
+  margin-left: 20px;
 }

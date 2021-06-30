@@ -17,6 +17,16 @@
     <div class='row mt-3'><div class='col-2'>優先度</div><div class='col-10'><span class="badge priority-<%= @task.priority %>"><%= t('show.priority')[@task.priority] %></span></div></div>
     <div class='row mt-2'><div class='col-2'>狀態</div><div class='col-10'><span class="badge status-<%= @task.status %>"><%= t('show.status')[@task.status] %></span></div></div>
 
+    <div class='row mt-2'>
+      <div class='col-2'>標籤</div>
+      <div class='col-10'>
+        <% @task.labels.each do |label| %>
+          <span class="badge me-2 label_colors<%= label.color %>">
+            <%= label.name %>
+          </span>
+        <% end %>
+      </div>
+    </div>
 
 
   </div>

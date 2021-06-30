@@ -16,4 +16,13 @@ class Task < ApplicationRecord
       errors.add :endtime, :endtime_is_greater, message: I18n.t('flash.task.end_start')
     end
   end
+
+  def label_items
+    labels.map(&:name)
+  end
+
+  def label_items=(names)
+    self.labels = names.map{|item|
+      Label.where(name: item.strip).first_or_create! unless item.blank?}.compact!
+  end
 end

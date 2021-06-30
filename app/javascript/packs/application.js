@@ -8,7 +8,17 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import '../utils/datepicker'
+import "select2"
+import 'select2/dist/css/select2.css'; 
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+$(document).on('turbolinks:load', function () {
+  $("#task_label_items").select2({
+    tags: true,
+    tokenSeparators: [',', ' '],
+    theme: "classic"
+  })
+});
