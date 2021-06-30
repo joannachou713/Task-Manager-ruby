@@ -1,12 +1,13 @@
 class TasksController < ApplicationController
   before_action :logged_in_user, only: [:show, :new, :create, :edit, :update, :destroy]
-  before_action :correct_task_user, only: [:edit, :update, :destroy]
+  before_action :correct_task_user, only: [:show, :edit, :update, :destroy]
+  before_action :find_record, only: [:show, :edit, :update, :destroy]
 
   def index
     if current_user
-      @q = Task.where(user_id: current_user.id).ransack(params[:q])
-      @tasks = @q.result
-      @tasks = @tasks.order('id ASC').page(params[:page]).per(9)
+      @q = current_user.tasks.ransack(params[:q])
+      @tasks = @q.result.includes(:labels, :label_relations)
+      @tasks = @tasks.order(id: :ASC).page(params[:page]).per(9)
     else
       render :index
     end
@@ -19,16 +20,15 @@ class TasksController < ApplicationController
 
 
   def show
-    @task = Task.find(params[:id])
   end
 
 
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id if current_user
+    @task = current_user.tasks.create(task_params)
 
     if @task.save
-      redirect_to tasks_path, notice: t('flash.task.successful-create')
+      flash[:success] = t('flash.task.successful-create')
+      redirect_to tasks_path
     else
       flash[:danger] = @task.errors.full_messages.to_sentence
       render :new
@@ -37,26 +37,24 @@ class TasksController < ApplicationController
 
 
   def edit
-    @task = Task.find(params[:id])
   end
 
 
   def update
-    @task = Task.find(params[:id])
-
     if @task.update(task_params)
-      redirect_to tasks_path, notice: t('flash.task.successful-update')
+      flash[:success] = t('flash.task.successful-update')
+      redirect_to tasks_path
     else
-      flash[:notice] = @task.errors.full_messages.to_sentence
+      flash[:danger] = @task.errors.full_messages.to_sentence
       render :edit
     end
   end
 
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy if @task
-    redirect_to tasks_path, notice: t('flash.task.successful-delete')
+    flash[:success] = t('flash.task.successful-delete')
+    redirect_to tasks_path
   end
   
 
@@ -65,7 +63,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :start, :endtime, :priority, :status)
+    params.require(:task).permit(:title, :content, :start, :endtime, :priority, :status, {label_items: []} )
   end
   
   
@@ -82,5 +80,10 @@ class TasksController < ApplicationController
       flash[:danger] = t('flash.user.nopermit')
       redirect_to(root_path)
     end  
+  end
+
+
+  def find_record
+    @task = Task.includes(:labels, :label_relations).find(params[:id])
   end
 end

@@ -4,11 +4,11 @@
     <%= link_to t('show.new'), new_task_path, class:"btn btn-outline-primary" %>
     <div>
       <%= search_form_for @q, class: 'd-flex align-items-center justify-content-center' do |f| %>
-        <%= f.label :title_cont, t('filter.title'), class: "me-2 filter-title fs-6 " %>
-        <%= f.search_field :title_cont, class: 'form-control w-25', placeholder: 'Title Contains' %>
+        <%= f.search_field :title_cont, class: 'form-control w-25', placeholder: t('filter.title') %>
         
-        <%= f.label :status_eq, t('filter.status'), class: "ms-3 me-2 filter-title fs-6 " %>
-        <%= f.select :status_eq, options_for_select([['None', '' ], [t('show.status')[0], 0], [t('show.status')[1], 1], [t('show.status')[2], 2]]), {}, {class: 'form-control w-25'} %>
+        <%= f.search_field :labels_name_cont, class: 'form-control w-25 ms-3', placeholder: t('filter.label') %>
+        
+        <%= f.select :status_eq, options_for_select([["#{t('filter.status')}  ▾", '' ], [t('show.status')[0], 0], [t('show.status')[1], 1], [t('show.status')[2], 2]]), {}, {class: 'form-control w-25 ms-3'} %>
 
         <%= f.submit "Search", name: 'search', class: 'btn btn-outline-primary ms-3' %>
       <% end %>

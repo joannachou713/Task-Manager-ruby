@@ -63,4 +63,12 @@ class ApplicationController < ActionController::Base
   def current_user?(user)
     user && user == current_user
   end
+
+  # Confirm an admin user
+  def admin_user
+    if !current_user.admin?
+      flash[:danger] = t('flash.user.nopermit')
+      redirect_to(root_path)
+    end
+  end
 end
