@@ -24,6 +24,9 @@ This is a simple task manager written in Ruby
     $ heroku create [app name]
     $ git push heroku main
     $ heroku run rails db:migrate
+    $ heroku run bundle install
+    $ heroku restart
+    $ heroku run rails db:seed
     ```
   - [App Link](https://task-manager-78177.herokuapp.com/)
 
