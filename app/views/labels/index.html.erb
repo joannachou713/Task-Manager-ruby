@@ -11,7 +11,9 @@
         </td>
         <td class="text-center"><%= t('show.task_count') %>
         </td>
-        <td></td>
+        <% if current_user.admin? %>
+          <td></td>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -23,16 +25,19 @@
           <td class="text-center"><%= link_to label_path(label) do%><%= label.name %></td><% end %>
           <td class="text-center time"><%= label.created_at.strftime("%m %d, %Y") %></td>
           <td class='text-center'>
-            <%= label.tasks.count %>
+            <%= label.tasks.where(user: current_user).count %>
           </td>
-          <td class="text-center">
-            <%= link_to edit_label_path(label) do %>
-              <i class="fas fa-pen "></i>
-            <% end %>
-            <%= link_to label_path(label), method: "delete", data: { confirm: "確認刪除" }, id: "delete-#{label.id}" do %>
-              <i class="fas fa-trash-alt  ms-1"></i>
-            <% end %>
-          </td>
+
+          <% if current_user.admin? %>
+            <td class="text-center">
+              <%= link_to edit_label_path(label) do %>
+                <i class="fas fa-pen "></i>
+              <% end %>
+              <%= link_to label_path(label), method: "delete", data: { confirm: "確認刪除" }, id: "delete-#{label.id}" do %>
+                <i class="fas fa-trash-alt  ms-1"></i>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
         <% end %>
       <% end %>

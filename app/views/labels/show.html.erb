@@ -1,6 +1,10 @@
 <h1 class="mb-3 text-center title"><%= @label.name%></h1>
 
-<div class='shadow p-2 mb-5 panel'>
+<div class='shadow p-2 mb-4 panel'>
   <%= render 'tasks/tasklist', tasks: @tasks %>
 </div>
 <%= paginate @tasks, theme: 'twitter-bootstrap-4'%>
+
+<div class="w-100 mb-5 d-flex justify-content-center align-items-center">
+  <%= link_to t('show.back'), tasks_path, class:"btn btn-primary mt-4"%>
+</div>

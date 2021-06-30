@@ -1,6 +1,7 @@
 class LabelsController < ApplicationController
   before_action :logged_in_user
   before_action :find_label, only: [:edit, :update, :destroy]
+  before_action :admin_user, only: [:edit, :update, :destroy]
 
   def index
     @labels = Label.includes(:tasks, :label_relations).page(params[:page]).per(9)
@@ -8,8 +9,7 @@ class LabelsController < ApplicationController
 
   def show
     @label = Label.includes(:tasks, :label_relations).find(params[:id])
-    
-    @q = @label.tasks.ransack(params[:q])
+    @q = @label.tasks.where(user: current_user).ransack(params[:q])
     @tasks = @q.result.order('id ASC').page(params[:page]).per(9)
   end
 

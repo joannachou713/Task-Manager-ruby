@@ -91,10 +91,4 @@ class UsersController < ApplicationController
     redirect_to :action => 'index'
   end
 
-
-  # Confirm an admin user
-  def admin_user
-    redirect_to(root_path) unless current_user.admin?
-  end
-
 end
