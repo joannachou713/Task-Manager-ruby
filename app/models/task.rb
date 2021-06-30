@@ -23,6 +23,6 @@ class Task < ApplicationRecord
 
   def label_items=(names)
     self.labels = names.map{|item|
-      Label.where(name: item.strip).first_or_create! unless item.blank?}.compact!
+      Label.find_or_create_by(name: item.strip) unless item.blank?}.compact!
   end
 end
