@@ -19,9 +19,12 @@ en:
       - Finished
     back: Back to Task List
     label: Label
+    chooselabel: Choose Label
+    task_count: Task Count
   filter:
-    title: 過濾標題
-    status: 過濾狀態
+    title: Search Title
+    label: Search Label
+    status: Filter Status
   edit: Edit
   delete: Delete
   views:
@@ -48,7 +51,6 @@ en:
     tasklist: All Tasks of this user
     create: Join Time
     new: Create New User
-    task_count: Task Count 
     back-admin: Back to Admin Page
   flash:
     user:
@@ -63,4 +65,17 @@ en:
       successful-update: Task updated successfully
       end_start: Start time must before end time
       welcome: Welcome to Task Manager!
+    label:
+      successful-create: Label created successfully
+      successful-delete: Label deleted successfully
+      successful-update: Label updated successfully
     notfound: Record not found
+  label: 
+    new: New Label
+    name: Label Name
+    choosecolor: Choose color
+    back: Back to Label list
+  error:
+    not_found: 404 Not Found :(
+    internal_server_error: 500 Internal Server Error :(
+  

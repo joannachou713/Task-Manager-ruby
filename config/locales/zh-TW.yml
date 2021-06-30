@@ -75,3 +75,6 @@
     name: 標籤名稱
     choosecolor: 選擇顏色
     back: 回到標籤列表
+  error:
+    not_found: 404 無此頁面 :(
+    internal_server_error: 500 伺服器出現問題 :(
