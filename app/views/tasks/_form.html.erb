@@ -4,7 +4,7 @@
         <%= f.text_field :title, class: "form-control mb-4" %> 
     
         <%= f.label t('show.content')%>
-        <%= f.text_area :content, class: "form-control mb-4" %> 
+        <%= f.text_area :content, class: "form-control mb-4 tinymce" %> 
     
         <div class="d-flex mb-4">
             <div class="col-6">
@@ -64,3 +64,5 @@
 <script>
 
 </script>
+
+<%= tinymce_assets %>

@@ -10,6 +10,7 @@ import "channels"
 import '../utils/datepicker'
 import "select2"
 import 'select2/dist/css/select2.css'; 
+import '../utils/editor';
 
 Rails.start()
 Turbolinks.start()
@@ -22,3 +23,5 @@ $(document).on('turbolinks:load', function () {
     theme: "classic"
   })
 });
+require("trix")
+require("@rails/actiontext")
