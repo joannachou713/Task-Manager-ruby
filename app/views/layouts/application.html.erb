@@ -57,14 +57,14 @@
               <li class="nav-item">
                 <%= link_to 'Log in', login_path, class: 'nav-link' %>
               </li>
-              
+
             <% end %>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class='container pt-5'>  
+    <div class='container pt-5'>
       <div class='d-flex flex-column justify-content-center align-items-center'>
         <% flash.each do |message_type, message| %>
           <div class='alert alert-<%= message_type %>'><%= message %></div>
@@ -72,7 +72,7 @@
       </div>
 
       <%= yield %>
-      <%= debug(params) if Rails.env.development?%>
+      <% # debug(params) if Rails.env.development?%>
     </div>
   </body>
 </html>
