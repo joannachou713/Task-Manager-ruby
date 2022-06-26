@@ -1,0 +1,51 @@
+FROM node:14-alpine as node
+USER root
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+FROM ruby:3.0.3-alpine
+
+ENV APP_PATH /var/app
+ENV BUNDLE_VERSION 2.2.33
+ENV BUNDLE_PATH /usr/local/bundle/gems
+ENV TMP_PATH /tmp/
+ENV RAILS_LOG_TO_STDOUT true
+ENV RAILS_PORT 3000
+
+# copy entrypoint scripts and grant execution permissions
+COPY ./entrypoint /usr/local/bin/entrypoint
+COPY --from=node . .
+RUN chmod +x /usr/local/bin/entrypoint
+
+# install dependencies for application
+RUN apk -U add --no-cache \
+build-base \
+git \
+postgresql-dev \
+postgresql-client \
+libxml2-dev \
+libidn-dev \
+libxslt-dev \
+yarn \
+imagemagick6 \
+imagemagick6-c++ \
+imagemagick6-dev \
+imagemagick6-libs \
+tzdata \
+less \
+curl \
+bash \
+&& rm -rf /var/cache/apk/* \
+&& mkdir -p $APP_PATH
+
+RUN gem install bundler --version "$BUNDLE_VERSION" \
+&& rm -rf $GEM_HOME/cache/*
+
+RUN yarn install --check-file
+
+ENV RAILS_ENV=production
+
+# navigate to app directory
+WORKDIR $APP_PATH
+
+EXPOSE $RAILS_PORT
+
+ENTRYPOINT ["entrypoint"]
