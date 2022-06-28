@@ -55,8 +55,8 @@ services:
       - net
       - traefik-public
     stdin_open: true
-    # ports:
-      # - 3000:3000
+    ports:
+      - 3000:3000
     tty: true
     command:
       - rails server -p 3000 -b 0.0.0.0
@@ -70,10 +70,10 @@ services:
       labels:
         - traefik.docker.network=traefik-public
         - traefik.constraint-label=traefik-public
-        - traefik.http.routers.task-http.rule=Host(`jc713.staff.5xruby.dev`)
+        - traefik.http.routers.task-http.rule=Host(`task.jc713.staff.5xruby.dev`)
         - traefik.http.routers.task-http.entrypoints=http
         - traefik.http.routers.task-http.middlewares=https-redirect
-        - traefik.http.routers.task-https.rule=Host(`jc713.staff.5xruby.dev`)
+        - traefik.http.routers.task-https.rule=Host(`task.jc713.staff.5xruby.dev`)
         - traefik.http.routers.task-https.entrypoints=https
         - traefik.http.routers.task-https.tls=true
         - traefik.http.routers.task-https.tls.certresolver=le
@@ -116,12 +116,12 @@ services:
         - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
         # traefik-http set up only to use the middleware to redirect to https
         # Uses the environment variable DOMAIN
-        - traefik.http.routers.traefik-public-http.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.traefik-public-http.rule=Host(`traefik.jc713.staff.5xruby.dev`)
         - traefik.http.routers.traefik-public-http.entrypoints=http
         - traefik.http.routers.traefik-public-http.middlewares=https-redirect
         # traefik-https the actual router using HTTPS
         # Uses the environment variable DOMAIN
-        - traefik.http.routers.traefik-public-https.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.traefik-public-https.rule=Host(`traefik.jc713.staff.5xruby.dev`)
         - traefik.http.routers.traefik-public-https.entrypoints=https
         - traefik.http.routers.traefik-public-https.tls=true
         # Use the special Traefik service api@internal with the web UI/Dashboard
@@ -130,8 +130,11 @@ services:
         - traefik.http.routers.traefik-public-https.tls.certresolver=le
         # Enable HTTP Basic auth, using the middleware created above
         - traefik.http.routers.traefik-public-https.middlewares=admin-auth
+        - traefik.http.routers.traefik-public-https.tls.domains[0].main=jc713.staff.5xruby.dev
+        - traefik.http.routers.traefik-public-https.tls.domains[0].sans=*.jc713.staff.5xruby.dev
         # Define the port inside of the Docker service to use
         - traefik.http.services.traefik-public.loadbalancer.server.port=8080
+
 
     volumes:
       # Add Docker as a mounted volume, so that Traefik can read the labels of other services
@@ -158,10 +161,11 @@ services:
       - --certificatesresolvers.le.acme.storage=/certificates/acme.json
       # Use the TLS Challenge for Let's Encrypt
       - --certificatesresolvers.le.acme.tlschallenge=true
+      # - --certificatesresolvers.le.acme.dnschallenge.provider=route53
       # Enable the access log, with HTTP requests
       - --accesslog
       # Enable the Traefik log, for configurations and errors
-      - --log
+      - --log.level=DEBUG
       # Enable the Dashboard and API
       - --api
 
