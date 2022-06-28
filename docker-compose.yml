@@ -54,20 +54,15 @@ services:
     networks:
       - net
       - traefik-public
-    ports:
-      - 3000:3000
     stdin_open: true
+    # ports:
+      # - 3000:3000
     tty: true
     command:
-      # - rails assets:precompile
       - rails server -p 3000 -b 0.0.0.0
     env_file: .env
-    # environment:
-      # RAILS_ENV: production
-      # WEBPACKER_DEV_SERVER_HOST: webpacker
     depends_on:
       - db
-      # - webpacker
     deploy:
       placement:
         constraints:
@@ -75,26 +70,16 @@ services:
       labels:
         - traefik.docker.network=traefik-public
         - traefik.constraint-label=traefik-public
-        - traefik.http.routers.task-manager-http.rule=Host(`${DOMAIN}`)
-        - traefik.http.routers.task-manager-http.entrypoints=http
-        - traefik.http.routers.task-manager-http.middlewares=https-redirect
-        - traefik.http.routers.task-manager-https.rule=Host(`${DOMAIN}`)
-        - traefik.http.routers.task-manager-https.entrypoints=https
-        - traefik.http.routers.task-manager-https.tls=true
-        - traefik.http.routers.task-manager-https.tls.certresolver=le
-        - traefik.http.services.task-manager.loadbalancer.server.port=3000
-
-
-  # visualizer:
-    # image: dockersamples/visualizer:stable
-    # ports:
-      # - "8080:8080"
-    # stop_grace_period: 1m30s
-    # volumes:
-      # - shared_data:/var/run/docker.sock
-    # deploy:
-      # placement:
-        # constraints: [node.role == manager]
+        - traefik.http.routers.task-http.rule=Host(`jc713.staff.5xruby.dev`)
+        - traefik.http.routers.task-http.entrypoints=http
+        - traefik.http.routers.task-http.middlewares=https-redirect
+        - traefik.http.routers.task-https.rule=Host(`jc713.staff.5xruby.dev`)
+        - traefik.http.routers.task-https.entrypoints=https
+        - traefik.http.routers.task-https.tls=true
+        - traefik.http.routers.task-https.tls.certresolver=le
+        - traefik.http.services.task.loadbalancer.server.port=3000
+        - traefik.http.routers.task-https.tls.domains[0].main=jc713.staff.5xruby.dev
+        - traefik.http.routers.task-https.tls.domains[0].sans=*.jc713.staff.5xruby.dev
 
   traefik:
     # Use the latest v2.2.x Traefik image available
