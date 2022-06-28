@@ -1,5 +1,6 @@
 version: '3'
 networks:
+  net:
   traefik-public:
     external: true
 volumes:
@@ -14,7 +15,7 @@ services:
     image: redis:6.0-alpine
     command: redis-server
     networks:
-      - traefik-public
+      - net
     volumes:
       - shared_data:/var/shared/redis
     deploy:
@@ -29,7 +30,7 @@ services:
       - db_data:/var/lib/postgresql/data
       - shared_data:/var/shared
     networks:
-      - traefik-public
+      - net
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -51,6 +52,7 @@ services:
       - shared_data:/var/shared
       - gem_cache:/usr/local/bundle/gems
     networks:
+      - net
       - traefik-public
     ports:
       - 3000:3000
@@ -70,6 +72,18 @@ services:
       placement:
         constraints:
           - node.role == manager
+      labels:
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.task-manager-http.rule=Host(`${DOMAIN}`)
+        - traefik.http.routers.task-manager-http.entrypoints=http
+        - traefik.http.routers.task-manager-http.middlewares=https-redirect
+        - traefik.http.routers.task-manager-https.rule=Host(`${DOMAIN}`)
+        - traefik.http.routers.task-manager-https.entrypoints=https
+        - traefik.http.routers.task-manager-https.tls=true
+        - traefik.http.routers.task-manager-https.tls.certresolver=le
+        - traefik.http.services.task-manager.loadbalancer.server.port=3000
+
 
   # visualizer:
     # image: dockersamples/visualizer:stable
@@ -98,6 +112,7 @@ services:
           # Make the traefik service run only on the node with this label
           # as the node with it has the volume for the certificates
           - node.labels.traefik-public.traefik-public-certificates == true
+
       labels:
         # Enable Traefik for this service, to make it available in the public network
         - traefik.enable=true
@@ -132,14 +147,14 @@ services:
         - traefik.http.routers.traefik-public-https.middlewares=admin-auth
         # Define the port inside of the Docker service to use
         - traefik.http.services.traefik-public.loadbalancer.server.port=8080
+
     volumes:
       # Add Docker as a mounted volume, so that Traefik can read the labels of other services
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # Mount the volume to store the certificates
       - traefik-public-certificates:/certificates
+
     command:
-      # Enable dashboard
-      - --api.dashboard=true
       # Enable Docker in Traefik, so that it reads labels from Docker services
       - --providers.docker
       # Add a constraint to only use services with the label "traefik.constraint-label=traefik-public"
@@ -164,6 +179,7 @@ services:
       - --log
       # Enable the Dashboard and API
       - --api
+
     networks:
       # Use the public network created to be shared between Traefik and
       # any other service that needs to be publicly available with HTTPS
