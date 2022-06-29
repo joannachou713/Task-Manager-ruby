@@ -12,7 +12,7 @@ networks:
   traefik-public:
     external: true
 
-service:
+services:
 
   traefik:
     # Use the latest v2.2.x Traefik image available
