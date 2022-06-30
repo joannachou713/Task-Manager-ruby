@@ -1,51 +1,54 @@
-FROM node:14-alpine as node
-USER root
-RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
-FROM ruby:3.0.1-alpine
+ARG APP_ROOT=/src/app
+ARG RUBY_VERSION=3.0.1
 
-ENV APP_PATH /var/app
-ENV BUNDLE_VERSION 2.2.29
-ENV BUNDLE_PATH /usr/local/bundle/gems
-ENV TMP_PATH /tmp/
-ENV RAILS_LOG_TO_STDOUT true
-ENV RAILS_PORT 3000
+FROM ruby:${RUBY_VERSION}-alpine AS gem
+ARG APP_ROOT
 
-# copy entrypoint scripts and grant execution permissions
-COPY ./entrypoint /usr/local/bin/entrypoint
-COPY --from=node . .
-RUN chmod +x /usr/local/bin/entrypoint
+RUN apk add --no-cache build-base postgresql-dev
 
-# install dependencies for application
-RUN apk -U add --no-cache \
-build-base \
-git \
-postgresql-dev \
-postgresql-client \
-libxml2-dev \
-libidn-dev \
-libxslt-dev \
-yarn \
-imagemagick6 \
-imagemagick6-c++ \
-imagemagick6-dev \
-imagemagick6-libs \
-tzdata \
-less \
-curl \
-bash \
-&& rm -rf /var/cache/apk/* \
-&& mkdir -p $APP_PATH
+RUN mkdir -p ${APP_ROOT}
+COPY Gemfile Gemfile.lock ${APP_ROOT}/
 
-RUN gem install bundler --version "$BUNDLE_VERSION" \
-&& rm -rf $GEM_HOME/cache/*
+WORKDIR ${APP_ROOT}
+RUN gem install bundler:2.2.15 \
+    && bundle config --local deployment 'true' \
+    && bundle config --local frozen 'true' \
+    && bundle config --local no-cache 'true' \
+    && bundle config --local without 'development test' \
+    && bundle install -j "$(getconf _NPROCESSORS_ONLN)" \
+    && find ${APP_ROOT}/vendor/bundle -type f -name '*.c' -delete \
+    && find ${APP_ROOT}/vendor/bundle -type f -name '*.h' -delete \
+    && find ${APP_ROOT}/vendor/bundle -type f -name '*.o' -delete \
+    && find ${APP_ROOT}/vendor/bundle -type f -name '*.gem' -delete
 
-RUN yarn install --check-file
+FROM ruby:${RUBY_VERSION}-alpine
+ARG APP_ROOT
+
+RUN apk add --no-cache shared-mime-info tzdata postgresql-libs
+
+COPY --from=gem /usr/local/bundle/config /usr/local/bundle/config
+COPY --from=gem /usr/local/bundle /usr/local/bundle
+COPY --from=gem ${APP_ROOT}/vendor/bundle ${APP_ROOT}/vendor/bundle
+
+RUN mkdir -p ${APP_ROOT}
 
 ENV RAILS_ENV=production
+ENV RAILS_LOG_TO_STDOUT=true
+ENV RAILS_SERVE_STATIC_FILES=yes
+ENV APP_ROOT=$APP_ROOT
 
-# navigate to app directory
-WORKDIR $APP_PATH
+COPY . ${APP_ROOT}
 
-EXPOSE $RAILS_PORT
+# Apply Execute Permission
+RUN adduser -h ${APP_ROOT} -D -s /bin/nologin ruby ruby && \
+    chown ruby:ruby ${APP_ROOT} && \
+    chown -R ruby:ruby ${APP_ROOT}/log && \
+    chown -R ruby:ruby ${APP_ROOT}/tmp && \
+    chmod -R +r ${APP_ROOT}
 
-ENTRYPOINT ["entrypoint"]
+USER ruby
+WORKDIR ${APP_ROOT}
+
+EXPOSE 3000
+ENTRYPOINT ["bin/rails"]
+CMD ["server", "-b", "0.0.0.0"]
