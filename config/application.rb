@@ -13,6 +13,7 @@ module TaskManagerRuby
     config.i18n.default_locale = "zh-TW"
     config.time_zone = "Taipei"
     config.exceptions_app = self.routes
+    config.active_support.use_authenticated_message_encryption = true
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

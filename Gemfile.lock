@@ -290,6 +290,7 @@ DEPENDENCIES
   boxing
   byebug
   capybara (>= 3.26)
+  execjs
   factory_bot_rails
   faker
   jbuilder (~> 2.7)
