@@ -33,7 +33,8 @@ gem 'select2-rails', '~> 4.0', '>= 4.0.3'
 
 gem 'simple_form'
 
-gem 'libv8'
+gem 'therubyracer'
+
 # gem 'mini_racer', platforms: :ruby
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
