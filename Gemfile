@@ -32,7 +32,7 @@ gem 'faker'
 gem 'select2-rails', '~> 4.0', '>= 4.0.3'
 
 gem 'simple_form'
-gem 'execjs'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
