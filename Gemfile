@@ -33,7 +33,7 @@ gem 'select2-rails', '~> 4.0', '>= 4.0.3'
 
 gem 'simple_form'
 
-gem 'mini_racer', platforms: :ruby
+# gem 'mini_racer', platforms: :ruby
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
