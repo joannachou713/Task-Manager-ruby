@@ -41,6 +41,7 @@ RUN gem install bundler --version "$BUNDLE_VERSION" \
 
 RUN yarn install --check-file
 
+RUN bundle exec rake assets:precompile
 ENV RAILS_ENV=production
 
 # navigate to app directory
