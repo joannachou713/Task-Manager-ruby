@@ -24,4 +24,4 @@ production:
   <<: *default
   database: db/production
   username: postgres
-  password: postgres
+  password: password
