@@ -68,6 +68,7 @@ services:
         constraints:
           - node.role == manager
       labels:
+        - traefik.enable=true
         - traefik.docker.network=traefik-public
         - traefik.constraint-label=traefik-public
         - traefik.http.routers.task-http.rule=Host(`task.demo.jc713.staff.5xruby.dev`)
