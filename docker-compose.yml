@@ -23,12 +23,12 @@ services:
         constraints:
           - node.role == manager
 
-  db:
+  postgres:
     image: postgres:14-alpine
-    container_name: db
+    container_name: postgres
     volumes:
       - db_data:/var/lib/postgresql/data
-      - shared_data:/var/shared
+      # - shared_data:/var/shared
     networks:
       - net
     environment:
@@ -62,7 +62,7 @@ services:
       # - rails server -p 3000 -b 0.0.0.0
     env_file: .env
     depends_on:
-      - db
+      - postgres
     deploy:
       placement:
         constraints:
@@ -81,4 +81,3 @@ services:
         - traefik.http.services.task.loadbalancer.server.port=3000
         - traefik.http.routers.task-https.tls.domains[0].main=demo.jc713.staff.5xruby.dev
         - traefik.http.routers.task-https.tls.domains[0].sans=*.demo.jc713.staff.5xruby.dev
-

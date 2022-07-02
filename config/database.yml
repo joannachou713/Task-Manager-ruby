@@ -23,6 +23,5 @@ test:
 production:
   <<: *default
   database: db/production
-  host: 127.0.0.1
   username: postgres
   password: password
