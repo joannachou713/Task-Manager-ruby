@@ -41,12 +41,18 @@ RUN gem install bundler --version "$BUNDLE_VERSION" \
 
 RUN yarn install --check-file
 
-RUN bundle exec rake assets:precompile
+# RUN bundle exec rake assets:precompile
 ENV RAILS_ENV=production
 
 # navigate to app directory
 WORKDIR $APP_PATH
 
 EXPOSE $RAILS_PORT
+
+
+RUN which node
+RUN node -v
+RUN yarn -v
+
 
 ENTRYPOINT ["entrypoint"]

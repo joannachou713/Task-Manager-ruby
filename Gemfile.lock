@@ -127,10 +127,6 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
-    libv8-node (16.10.0.0-aarch64-linux)
-    libv8-node (16.10.0.0-arm64-darwin)
-    libv8-node (16.10.0.0-x86_64-darwin)
-    libv8-node (16.10.0.0-x86_64-linux)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -143,8 +139,6 @@ GEM
     method_source (1.0.0)
     mini_mime (1.0.3)
     mini_portile2 (2.5.3)
-    mini_racer (0.6.2)
-      libv8-node (~> 16.10.0.0)
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.7)
@@ -302,7 +296,6 @@ DEPENDENCIES
   jquery-rails
   kaminari
   listen (~> 3.3)
-  mini_racer
   pg (~> 1.2.3)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
