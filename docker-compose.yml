@@ -45,7 +45,7 @@ services:
     image: task_app
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     container_name: app
     volumes:
       - .:/var/app
