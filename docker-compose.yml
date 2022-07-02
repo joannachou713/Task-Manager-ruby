@@ -28,12 +28,12 @@ services:
     container_name: postgres
     volumes:
       - db_data:/var/lib/postgresql/data
-      # - shared_data:/var/shared
     networks:
       - net
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - 5432:5432
     deploy:
