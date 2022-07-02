@@ -1,13 +1,10 @@
 version: '3'
 networks:
   net:
-  traefik-public:
-    external: true
 volumes:
   db_data:
   gem_cache:
   shared_data:
-  traefik-public-certificates:
 
 services:
 
@@ -53,7 +50,6 @@ services:
       - gem_cache:/usr/local/bundle/gems
     networks:
       - net
-      - traefik-public
     stdin_open: true
     # ports:
       # - 3000:3000
@@ -67,17 +63,3 @@ services:
       placement:
         constraints:
           - node.role == manager
-      labels:
-        - traefik.docker.network=traefik-public
-        - traefik.constraint-label=traefik-public
-        - traefik.http.routers.task-http.rule=Host(`task.jc713.staff.5xruby.dev`)
-        - traefik.http.routers.task-http.entrypoints=http
-        - traefik.http.routers.task-http.middlewares=https-redirect
-        - traefik.http.routers.task-https.rule=Host(`task.jc713.staff.5xruby.dev`)
-        - traefik.http.routers.task-https.entrypoints=https
-        - traefik.http.routers.task-https.tls=true
-        - traefik.http.routers.task-https.tls.certresolver=le
-        - traefik.http.services.task.loadbalancer.server.port=3000
-        - traefik.http.routers.task-https.tls.domains[0].main=jc713.staff.5xruby.dev
-        - traefik.http.routers.task-https.tls.domains[0].sans=*.jc713.staff.5xruby.dev
-
