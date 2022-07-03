@@ -1,18 +1,18 @@
 
-<div class="shadow panel p-4 w-25">
+<div class="panel p-4 w-50">
   <%= bootstrap_form_for(@label) do |f| %>
-    <%= f.text_field :name, class: "form-control mb-4", label: t('label.name'), label_class: 'mb-2' %> 
-   
+    <%= f.text_field :name, class: "form-control mb-4", label: t('label.name'), label_class: 'mb-2' %>
+
     <div class="mb-2"><%= t('label.choosecolor') %></div>
     <div class="d-flex flex-wrap">
       <div class="me-5">
 
-        <%= f.radio_button :color,'1', label: 'Red', label_class:'badge label_colors1' %>
-        <%= f.radio_button :color,'2', label: 'Orange', label_class:'badge label_colors2' %>
-        <%= f.radio_button :color,'3', label: 'Green', label_class:'badge label_colors3' %>
-        <%= f.radio_button :color,'4', label: 'Blue', label_class:'badge label_colors4' %>
-        <%= f.radio_button :color,'5', label: 'Dark Blue', label_class:'badge label_colors5' %>
-        <%= f.radio_button :color,'6', label: 'Purple', label_class:'badge label_colors6' %>
+        <%= f.radio_button :color,'1', label: 'Red', label_class:'badge label_colors1 mb-2' %>
+        <%= f.radio_button :color,'2', label: 'Orange', label_class:'badge label_colors2 mb-2' %>
+        <%= f.radio_button :color,'3', label: 'Green', label_class:'badge label_colors3 mb-2' %>
+        <%= f.radio_button :color,'4', label: 'Blue', label_class:'badge label_colors4 mb-2' %>
+        <%= f.radio_button :color,'5', label: 'Dark Blue', label_class:'badge label_colors5 mb-2' %>
+        <%= f.radio_button :color,'6', label: 'Purple', label_class:'badge label_colors6 mb-2' %>
       </div>
     </div>
 

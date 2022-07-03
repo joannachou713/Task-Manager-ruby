@@ -2,7 +2,7 @@
 
 <h1 class="mb-3 text-center title">User Profile</h1>
 <% if current_user.admin? %>
-  <div class='shadow p-4 mb-5 panel'>
+  <div class='p-4 mb-5 panel'>
     <h5><%= t('user.basicinfo') %></h5>
     <div class='row'>
       <div class="col-4 d-flex">
@@ -25,9 +25,9 @@
     </div>
 
     <h5 class="mt-4"><%= t('user.tasklist') %></h5>
-    
+
     <%= render "tasks/tasklist", tasks: @tasks %>
-    
+
     <div class="w-100 d-flex justify-content-center align-items-center">
       <%= paginate @tasks, theme: 'twitter-bootstrap-4'%>
     </div>
@@ -38,7 +38,7 @@
 
 <% else %>
   <div class="d-flex flex-column justify-content-center align-items-center">
-    <div class='shadow p-4 mb-5 panel w-50'>
+    <div class='p-4 mb-5 panel w-50'>
       <h5 class='text-center mb-3'><%= t('user.basicinfo') %></h5>
         <div class="d-flex mb-3">
           <div class="me-3 col-3"><%= t('user.name') %></div>

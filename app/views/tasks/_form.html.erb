@@ -1,17 +1,17 @@
-<div class="shadow panel p-5 w-75">
+<div class="panel p-5 w-75">
     <%= simple_form_for(task) do |f| %>
         <%= f.label t('show.title')%>
-        <%= f.text_field :title, class: "form-control mb-4" %> 
-    
+        <%= f.text_field :title, class: "form-control mb-4" %>
+
         <%= f.label t('show.content')%>
-        <%= f.text_area :content, class: "form-control mb-4" %> 
-    
+        <%= f.text_area :content, class: "form-control mb-4" %>
+
         <div class="d-flex mb-4">
             <div class="col-6">
             <%= f.label t('show.start')%>
             <%= f.text_field :start, as: :string, class: 'datepicker form-control' %>
             </div>
-            
+
             <div class="col-6">
             <%= f.label t('show.end')%>
             <%= f.text_field :endtime, as: :string, class: 'datepicker form-control' %>
@@ -57,7 +57,7 @@
              label_method: :name,value_method: :name, input_html: {multiple: true} %>
 
         </div>
-        
+
         <div class="d-flex justify-content-center"><%= f.submit class: 'btn btn-outline-secondary' %></div>
     <% end %>
 </div>

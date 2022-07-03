@@ -8,18 +8,18 @@
   <% end %>
 </h1>
 
-<div class="shadow panel p-4 w-25">
+<div class="panel p-4 w-50">
 
 <%= bootstrap_form_with(model: @user, local: true) do |f| %>
-  <div><%= t('user.basic-settings') %></div>
+  <h4><%= t('user.basic-settings') %></h4>
   <div class='mb-3'><%= f.text_field :name, label: t('user.name') %></div>
-  
+
   <div class='mb-3'><%= f.email_field :email, label: '' %></div>
-  
+
   <div class='mb-3'><%= f.text_field :tel, label: t('user.tel') %></div>
-  
+
   <% if current_user.id == @user.id %>
-    <div class='mt-4'><%= t('user.set-password') %></div>
+    <h4 class='mt-4'><%= t('user.set-password') %></h4>
     <div class='mb-3'><%= f.password_field :password, label: t('user.password') %></div>
     <div><%= f.password_field :password_confirmation, label: t('user.password-confirmation') %></div>
   <% end %>

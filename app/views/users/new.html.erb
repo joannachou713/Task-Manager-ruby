@@ -10,19 +10,19 @@
 <% end %>
 </h1>
 
-<div class="shadow panel p-4 w-25">
+<div class="panel p-4 w-50">
 
 <%= bootstrap_form_with(model: @user, local: true) do |f| %>
-  
-  <div class='mb-3'><%= f.text_field :name, label: '姓名' %></div>
-  
-  <div class='mb-3'><%= f.email_field :email, label: '' %></div>
-  
-  <div class='mb-3'><%= f.text_field :tel, label: '' %></div>
-  
-  <div class='mb-3'><%= f.password_field :password, label: '' %></div>
-  
-  <div class='mb-4'><%= f.password_field :password_confirmation, label: '' %></div>
+
+  <div class='mb-3'><%= f.text_field :name %></div>
+
+  <div class='mb-3'><%= f.email_field :email %></div>
+
+  <div class='mb-3'><%= f.text_field :tel %></div>
+
+  <div class='mb-3'><%= f.password_field :password %></div>
+
+  <div class='mb-4'><%= f.password_field :password_confirmation %></div>
 
   <div class="d-flex justify-content-center"><%= f.submit "#{submit_text}", class: 'btn btn-outline-secondary' %></div>
 

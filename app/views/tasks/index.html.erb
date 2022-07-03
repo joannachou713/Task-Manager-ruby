@@ -4,22 +4,22 @@
     <%= link_to t('show.new'), new_task_path, class:"btn btn-outline-primary" %>
     <div>
       <%= search_form_for @q, class: 'd-flex align-items-center justify-content-center' do |f| %>
-        <%= f.search_field :title_cont, class: 'form-control w-25', placeholder: t('filter.title') %>
-        
-        <%= f.search_field :labels_name_cont, class: 'form-control w-25 ms-3', placeholder: t('filter.label') %>
-        
-        <%= f.select :status_eq, options_for_select([["#{t('filter.status')}  ▾", '' ], [t('show.status')[0], 0], [t('show.status')[1], 1], [t('show.status')[2], 2]]), {}, {class: 'form-control w-25 ms-3'} %>
+        <%= f.search_field :title_cont, class: 'input-outline-primary form-control w-25', placeholder: t('filter.title') %>
+
+        <%= f.search_field :labels_name_cont, class: 'input-outline-primary form-control w-25 ms-3', placeholder: t('filter.label') %>
+
+        <%= f.select :status_eq, options_for_select([["#{t('filter.status')}  ▾", '' ], [t('show.status')[0], 0], [t('show.status')[1], 1], [t('show.status')[2], 2]]), {}, { class: 'input-outline-primary form-control w-25 ms-3' } %>
 
         <%= f.submit "Search", name: 'search', class: 'btn btn-outline-primary ms-3' %>
       <% end %>
     </div>
   </div>
-  
-  <div class='shadow p-2 mb-5 panel'>
+
+  <div class='p-2 mb-5 panel'>
   <%= render "tasklist", tasks: @tasks %>
   </div>
 
   <%= paginate @tasks, theme: 'twitter-bootstrap-4'%>
 <% else %>
-  <%= render "prevent_login" %>  
+  <%= render "prevent_login" %>
 <% end %>

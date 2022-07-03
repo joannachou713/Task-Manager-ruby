@@ -1,6 +1,6 @@
 <h1 class="mb-3 text-center title"><%= @label.name%></h1>
 
-<div class='shadow p-2 mb-4 panel'>
+<div class='p-2 mb-4 panel'>
   <%= render 'tasks/tasklist', tasks: @tasks %>
 </div>
 <%= paginate @tasks, theme: 'twitter-bootstrap-4'%>
