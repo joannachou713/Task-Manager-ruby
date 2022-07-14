@@ -1,12 +1,13 @@
 image: tiangolo/docker-with-compose
-services:
-  - name: docker:dind
-    entrypoint: ["env", "-u", "DOCKER_HOST"]
-    command: ["dockerd-entrypoint.sh"]
-variables:
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
+
+# services:
+  # - name: docker:dind
+    # entrypoint: ["env", "-u", "DOCKER_HOST"]
+    # command: ["dockerd-entrypoint.sh"]
+# variables:
+  # DOCKER_HOST: tcp://docker:2375/
+  # DOCKER_DRIVER: overlay2
+  # DOCKER_TLS_CERTDIR: ""
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -21,6 +22,24 @@ build-prod:
     - docker-compose build --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY
   only:
     - main
+  tags:
+    - prod
+
+deploy-traefik:
+  stage: deploy
+  script:
+    # - export USERNAME=admin
+    # - export PASSWORD=traefiktest
+    # - export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+    - docker swarm init --default-addr-pool 10.20.0.0/16
+    - docker network create --driver=overlay traefik-public
+    - export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
+    - docker node update --label-add traefik-public.traefik-public-certificates=true $NODE_ID
+    - docker stack deploy -c traefik.yml traefik
+  only:
+    - traefik
+  tags:
+    - prod
 
 deploy-prod:
   stage: deploy
@@ -28,3 +47,5 @@ deploy-prod:
     - docker stack deploy -c docker-compose.yml --with-registry-auth task
   only:
     - main
+  tags:
+    - prod
