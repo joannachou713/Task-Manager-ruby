@@ -12,11 +12,11 @@ build-prod:
   script:
     - docker-compose build
   only:
-    - master
+    - main
 
 deploy-prod:
   stage: deploy
   script:
     - docker stack deploy -c docker-compose.yml --with-registry-auth task
   only:
-    - master
+    - main
