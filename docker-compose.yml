@@ -56,7 +56,8 @@ services:
       - traefik-public
     stdin_open: true
     tty: true
-    env_file: .env
+    environment:
+      - RAILS_MASTER_KEY
     depends_on:
       - postgres
     deploy:
