@@ -1,14 +1,5 @@
 image: tiangolo/docker-with-compose
 
-# services:
-  # - name: docker:dind
-    # entrypoint: ["env", "-u", "DOCKER_HOST"]
-    # command: ["dockerd-entrypoint.sh"]
-# variables:
-  # DOCKER_HOST: tcp://docker:2375/
-  # DOCKER_DRIVER: overlay2
-  # DOCKER_TLS_CERTDIR: ""
-
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
@@ -28,9 +19,6 @@ build-prod:
 deploy-traefik:
   stage: deploy
   script:
-    # - export USERNAME=admin
-    # - export PASSWORD=traefiktest
-    # - export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
     - docker swarm init --default-addr-pool 10.20.0.0/16
     - docker network create --driver=overlay traefik-public
     - export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
